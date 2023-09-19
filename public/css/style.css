@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+header {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 15px;
+}
+
+header nav ul li a {
+    color: rgb(207, 207, 207);
+    text-transform: uppercase;
+}
+
+header nav ul .login {
+    background-color: #0d8ce0;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+main {
+    width: 80%;
+    margin: 50px auto;
+}
+
+main table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgb(61, 61, 61);
+    color: white;
+}
+
+main table thead tr th{
+    text-align: start;
+    padding: 5px;
+    font-size: 14px;
+    border-bottom: 2px solid rgb(197, 193, 193);
+}
+
+main table tbody .status {
+    background-color: #0d8ce0;
+    font-size: 10px;
+}
+
+main table tbody .unsign a{
+    color: rgb(248, 52, 52);
+}
+
+main table tbody .edit a{
+    color: rgb(248, 212, 52);
+}
+
+main table tbody tr td {
+    padding: 5px;
+    font-size: 14px;
+}
+
+main table tbody tr {
+    border-bottom: 1px solid rgb(90, 89, 89);
+}
+
+main table tbody tr td .session {
+    color: #35aaf8;
+    text-decoration: underline;
+}
+
+main table tbody tr:nth-child(odd) {
+    background-color: rgb(94, 94, 94);
+}

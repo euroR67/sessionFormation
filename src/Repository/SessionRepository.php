@@ -21,6 +21,43 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    // Fonction requête DQL pour récupérer les sessions qui sont actuellement en cours
+    public function findCurrentSessions(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateSession <= :date')
+            ->andWhere('s.dateFin >= :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('s.dateSession', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Fonction requête DQL pour récupérer les sessions qui sont à venir
+    public function findFutureSessions(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateSession > :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('s.dateSession', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Fonction requête DQL pour récupérer les sessions qui sont passées
+    public function findPastSessions(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateFin < :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('s.dateSession', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Session[] Returns an array of Session objects
 //     */

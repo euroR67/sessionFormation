@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un stagiaire{% endblock %}
+
+{% block body %}
+
+    <h1>Détail d'un stagiaire</h1>
+
+    <h2>{{ stagiaire }}</h2>
+
+    <h3>Informations du stagiaire</h3>
+
+    <p>
+        Téléphone : {{ stagiaire.telephone }}<br>
+        Email : {{ stagiaire.email }}<br>
+        Date de naissance : {{ stagiaire.dateNaissance|date('d/m/Y') }}<br>
+        Adresse : {{ stagiaire.ville }}<br>
+    </p>
+
+    <h3>Sessions</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Formation</th>
+                <th>Session</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Inscrits</th>
+                <th>Désinscrire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for session in stagiaire.sessions %}
+                <tr>
+                    <td class="status">Session incomplet</td>
+                    {# Affiche le nom de la formation dont le stagiaire est inscrit #}
+                    <td>{{ session.formation }}</td>
+                    {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
+                    <td><a class="session" href="">{{ session }}</a></td>
+                    {# Affiche la date de début de la session #}
+                    <td>{{ session.dateSession|date('d/m/Y') }}</td>
+                    {# Affiche la date de fin de la session #}
+                    <td>{{ session.dateFin|date('d/m/Y') }}</td>
+                    {# On affiche combien de stagiaire sont inscrit dans cet session #}
+                    <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
+                    {# Affiche le lien de désinscription #}
+                    <td class="unsign"><a href="">Désinscrire</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -4,13 +4,29 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% block stylesheets %}
         {% endblock %}
 
         {% block javascripts %}
         {% endblock %}
     </head>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a href="{{ path('app_formation') }}">Formations</a></li>
+                <li><a href="{{ path('app_session') }}">Sessions</a></li>
+                <li><a href="{{ path('app_stagiaire') }}">Stagiaires</a></li>
+                <li><a href="{{ path('app_formateur') }}">Formateurs</a></li>
+                <li><a href="{{ path('app_categorie') }}">Catégories</a></li>
+                <li><a class="login" href="">Login</a></li>
+            </ul>
+        </nav>
+    </header>
     <body>
-        {% block body %}{% endblock %}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>
