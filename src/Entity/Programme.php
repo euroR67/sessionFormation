@@ -32,8 +32,7 @@ class Programme
     public function __toString(): string
     {
         $module = $this->getModule();
-        $session = $this->getSession();
-        return $module->getNomModule() . ' - ' . $session->getNomSession();
+        return $module->getNomModule();
     }
 
     public function getDureeJour(): ?int

@@ -48,6 +48,11 @@ class Session
         $this->stagiaires = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getNomSession();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,11 +104,6 @@ class Session
         $this->dateFin = $dateFin;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->getNomSession();
     }
 
     /**
