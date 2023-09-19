@@ -101,6 +101,11 @@ class Session
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->getNomSession();
+    }
+
     /**
      * @return Collection<int, Programme>
      */

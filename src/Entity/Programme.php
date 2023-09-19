@@ -29,6 +29,13 @@ class Programme
         return $this->id;
     }
 
+    public function __toString(): string
+    {
+        $module = $this->getModule();
+        $session = $this->getSession();
+        return $module->getNomModule() . ' - ' . $session->getNomSession();
+    }
+
     public function getDureeJour(): ?int
     {
         return $this->dureeJour;

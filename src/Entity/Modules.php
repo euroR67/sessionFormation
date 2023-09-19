@@ -35,6 +35,12 @@ class Modules
         return $this->id;
     }
 
+    public function __toString(): string
+    {
+        $categorie = $this->getCategories();
+        return $categorie->getNomCategorie() . ' - ' . $this->getNomModule();
+    }
+
     public function getNomModule(): ?string
     {
         return $this->nomModule;
