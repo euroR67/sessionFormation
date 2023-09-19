@@ -31,9 +31,21 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class, orphanRemoval: true)]
     private Collection $programmes;
 
+    #[ORM\ManyToMany(targetEntity: Stagiaire::class, mappedBy: 'sessions')]
+    private Collection $stagiaires;
+
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Formation $formation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Formateur $formateur = null;
+
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
+        $this->stagiaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +127,57 @@ class Session
                 $programme->setSession(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stagiaire>
+     */
+    public function getStagiaires(): Collection
+    {
+        return $this->stagiaires;
+    }
+
+    public function addStagiaire(Stagiaire $stagiaire): static
+    {
+        if (!$this->stagiaires->contains($stagiaire)) {
+            $this->stagiaires->add($stagiaire);
+            $stagiaire->addSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStagiaire(Stagiaire $stagiaire): static
+    {
+        if ($this->stagiaires->removeElement($stagiaire)) {
+            $stagiaire->removeSession($this);
+        }
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getFormateur(): ?Formateur
+    {
+        return $this->formateur;
+    }
+
+    public function setFormateur(?Formateur $formateur): static
+    {
+        $this->formateur = $formateur;
 
         return $this;
     }
