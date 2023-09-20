@@ -8,7 +8,7 @@
 
     <h2>{{ session }}</h2>
 
-    <a class="edit" href="">Edit</a>
+    <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
 
     <div class="info-session">
         <p>Formateur référent : <a href="{{ path('show_formateur', {'id': session.formateur.id}) }}">{{ session.formateur }}</a></p><br>
