@@ -10,6 +10,8 @@
 
     <h3>Informations du stagiaire</h3>
 
+    <a href="{{ path('edit_stagiaire', {'id': stagiaire.id }) }}">Modifier</a>
+
     <p>
         Téléphone : {{ stagiaire.telephone }}<br>
         Email : {{ stagiaire.email }}<br>

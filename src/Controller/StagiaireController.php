@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Stagiaire;
 use App\Form\StagiaireType;
 use App\Repository\StagiaireRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,14 +22,29 @@ class StagiaireController extends AbstractController
         ]);
     }
 
-    // Méthode pour ajouter un stagiaire
+    // Méthode pour ajouter un stagiaire et pour modifier un stagiaire
     #[Route('/stagiaire/add', name: 'new_stagiaire')]
-    public function new_edit(Request $request): Response
+    #[Route('/stagiaire/{id}/edit', name: 'edit_stagiaire')]
+    public function new_edit(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-
-        $stagiaire = new Stagiaire();
+        if (!$stagiaire) {
+            $stagiaire = new Stagiaire();
+        }
 
         $form = $this->createForm(StagiaireType::class, $stagiaire);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $stagiaire = $form->getData();
+
+            $entityManager->persist($stagiaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_stagiaire');
+
+        }
 
         return $this->render('stagiaire/new.html.twig', [
             'form' => $form,

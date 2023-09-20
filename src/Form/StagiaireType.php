@@ -6,20 +6,27 @@ use App\Entity\Stagiaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StagiaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('date_naissance')
-            ->add('sexe')
-            ->add('ville')
-            ->add('email')
-            ->add('telephone')
+            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class)
+            ->add('date_naissance', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('sexe', TextType::class)
+            ->add('ville', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('telephone', TextType::class)
             ->add('sessions')
+            ->add('valider', SubmitType::class)
         ;
     }
 
