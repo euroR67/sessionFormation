@@ -1,23 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail d'un stagiaire{% endblock %}
+{% block title %}Détail d'une formation{% endblock %}
 
 {% block body %}
 
-    <h1>Détail d'un stagiaire</h1>
+    <h1>{{ formation }}</h1>
 
-    <h2>{{ stagiaire }}</h2>
-
-    <h3>Informations du stagiaire</h3>
-
-    <p>
-        Téléphone : {{ stagiaire.telephone }}<br>
-        Email : {{ stagiaire.email }}<br>
-        Date de naissance : {{ stagiaire.dateNaissance|date('d/m/Y') }}<br>
-        Adresse : {{ stagiaire.ville }}<br>
-    </p>
-
-    <h3>Sessions</h3>
+    <h3>Sessions de cet formation</h3>
 
     <table>
         <thead>
@@ -28,11 +17,14 @@
                 <th>Date de début</th>
                 <th>Date de fin</th>
                 <th>Inscrits</th>
-                <th>Désinscrire</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for session in stagiaire.sessions %}
+
+
+
+            {% for session in sessions %}
                 <tr>
                     <td class="status">Session incomplet</td>
                     {# Affiche le nom de la formation dont le stagiaire est inscrit #}
@@ -46,7 +38,7 @@
                     {# On affiche combien de stagiaire sont inscrit dans cet session #}
                     <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
                     {# Affiche le lien de désinscription #}
-                    <td class="unsign"><a href="">Désinscrire</a></td>
+                    <td class="edit"><a href="">Edit</a></td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une session{% endblock %}
+
+{% block body %}
+
+    <h1>Détail d'une catégorie</h1>
+
+    <h2>{{ categorie }}</h2>
+
+    {# boucle for pour afficher tout les modules associés à la catégorie #}
+    {% for module in categorie.modules %}
+        <a href="">{{ module }}</a>
+        <br>
+    {% endfor %}
+
+    
+
+{% endblock %}

@@ -58,6 +58,30 @@ class SessionRepository extends ServiceEntityRepository
         ;
     }
 
+    // Fonction requête DQL pour récupérer les sessions appartenant à une formation
+    public function findSessionsByFormation(int $id): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.formation = :id')
+            ->setParameter('id', $id)
+            ->orderBy('s.dateSession', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Fonction requête DQL pour récupérer les sessions appartenant à un formateur
+    public function findSessionsByFormateur(int $id): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.formateur = :id')
+            ->setParameter('id', $id)
+            ->orderBy('s.dateSession', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Session[] Returns an array of Session objects
 //     */

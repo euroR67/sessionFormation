@@ -15,7 +15,7 @@ class SessionController extends AbstractController
     {
         $sessions = $sessionRepository->findBy([], ['dateSession' => 'ASC']);
         return $this->render('session/index.html.twig', [
-            'controller_name' => 'SessionController',
+            'sessions' => $sessions,
         ]);
     }
 

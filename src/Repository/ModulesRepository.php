@@ -21,6 +21,18 @@ class ModulesRepository extends ServiceEntityRepository
         parent::__construct($registry, Modules::class);
     }
 
+    // Fonction requête DQL pour récupérer les modules d'une catégorie
+    public function findModulesByCategorie(int $id): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.categories = :id')
+            ->setParameter('id', $id)
+            ->orderBy('m.nomModule', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Modules[] Returns an array of Modules objects
 //     */
