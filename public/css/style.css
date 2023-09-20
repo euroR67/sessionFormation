@@ -31,10 +31,29 @@ header nav ul {
 header nav ul li a {
     color: rgb(207, 207, 207);
     text-transform: uppercase;
+    font-size: 12px;
 }
 
 header nav ul .login {
     background-color: #0d8ce0;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+header nav ul .logout {
+    border:2px solid rgb(248, 52, 52);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+header nav ul .profil {
+    border: 2px solid rgb(248, 212, 52);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+header nav ul .admin {
+    background-color: rgb(252, 74, 43);
     padding: 5px 10px;
     border-radius: 5px;
 }

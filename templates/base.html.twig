@@ -19,7 +19,15 @@
                 <li><a href="{{ path('app_stagiaire') }}">Stagiaires</a></li>
                 <li><a href="{{ path('app_formateur') }}">Formateurs</a></li>
                 <li><a href="{{ path('app_categorie') }}">Catégories</a></li>
-                <li><a class="login" href="">Login</a></li>
+                {# Si l'utilisateur n'est pas connecté on affiche le lien vers login #}
+                {% if not app.user %}
+                    <li><a class="login" href="{{ path('app_login') }}">Login</a></li>
+                {% endif %}
+                {% if app.user %}
+                <li><a class="logout" href="{{ path('app_logout') }}">Logout</a></li>
+                <li><a class="profil" href="">Profil</a></li>
+                <li><a class="admin" href="">Administration</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
