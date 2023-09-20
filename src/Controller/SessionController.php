@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Modules;
 use App\Entity\Session;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
