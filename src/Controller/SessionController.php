@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Repository\ModulesRepository;
 use App\Repository\SessionRepository;
 use App\Repository\StagiaireRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +23,12 @@ class SessionController extends AbstractController
 
     // Méthode pour afficher le détail d'une session et les modules associés
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(StagiaireRepository $stagiaireRepository,Session $session): Response
+    public function show(StagiaireRepository $stagiaireRepository,Session $session, ModulesRepository $modulesRepository): Response
     {
         return $this->render('session/show.html.twig', [
             'session' => $session,
-            'stagiaires' => $stagiaireRepository->findAll()
+            'stagiaires' => $stagiaireRepository->findAll(),
+            'modules' => $modulesRepository->findAll()
         ]);
     }
     

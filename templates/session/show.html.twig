@@ -77,31 +77,73 @@
         </div>
 
         <div class="programme">
-            <h3>Programme</h3>
+            <div class="programmer">
+                <h3>Programme</h3>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Module</th>
-                        <th>Catégorie</th>
-                        <th>Durée</th>
-                        <th>Déprogrammer</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {# boucle for pour afficher les modules du programme #}
-                    {% for programme in session.programmes %}
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ programme.module }}</td>
-                            <td>{{ programme.module.categories }}</td>
-                            <td>{{ programme.dureeJour }}</td>
-                            <td><a href="">Déprogrammer</a></td>
+                            <th>Module</th>
+                            <th>Catégorie</th>
+                            <th>Durée</th>
+                            <th>Déprogrammer</th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </table>
+                        {# boucle for pour afficher les modules du programme #}
+                        {% for programme in session.programmes %}
+                            <tr>
+                                <td>{{ programme.module }}</td>
+                                <td>{{ programme.module.categories }}</td>
+                                <td>{{ programme.dureeJour }}</td>
+                                <td><a href="">Déprogrammer</a></td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="non-programmer">
+                <h3>Modules non programmés</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Catégorie</th>
+                            <th>Durée</th>
+                            <th>Programmer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {# Loop through the modules #}
+                        {% for module in modules %}
+                        {# Initialize a variable to track whether the module is part of any program #}
+                        {% set isPartOfProgram = false %}
+
+                            {# Loop through the programmes of the session #}
+                            {% for programme in session.programmes %}
+                                {# Check if the current module is part of the current programme #}
+                                {% if module.nomModule == programme.module.nomModule %}
+                                    {# If it is, set the flag to true #}
+                                    {% set isPartOfProgram = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {# If the module is not part of any program, display it #}
+                            {% if not isPartOfProgram %}
+                                <tr>
+                                    <td>{{ module.nomModule }}</td>
+                                    <td>{{ module.categories }}</td>
+                                    <td><input type="number" value="1">jours</td>
+                                    <td><a href="">Programmer</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

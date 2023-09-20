@@ -109,6 +109,10 @@ main table tbody tr:nth-child(odd) {
     background-color: rgb(75, 74, 74);
 }
 
+main table tbody tr td input {
+    width: 40px;
+}
+
 main .info-session {
     background-color: rgb(61, 61, 61);
     padding: 20px;
