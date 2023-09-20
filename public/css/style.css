@@ -12,6 +12,10 @@ h1, h2, h3 {
     margin-block: 15px;
 }
 
+main a {
+    color: #4480fa;
+}
+
 body {
     background-color: #4d6575;
 }

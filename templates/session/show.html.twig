@@ -11,7 +11,7 @@
     <a class="edit" href="">Edit</a>
 
     <div class="info-session">
-        <p>Formateur référent : {{ session.formateur }}</p><br>
+        <p>Formateur référent : <a href="{{ path('show_formateur', {'id': session.formateur.id}) }}">{{ session.formateur }}</a></p><br>
 
         <p>
             Date de début : {{ session.dateSession|date('d/m/Y') }}<br>
@@ -39,8 +39,9 @@
                         {# boucle for pour afficher les stagiaires inscrits #}
                         {% for stagiaire in session.stagiaires %}
                             <tr>
-                                <td>{{ stagiaire }}</td>
-                                <td><a href="">Désinscrire</a></td>
+                                {# Nom du stagiaire avec lien vers détail stagiaire #}
+                                <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
+                                <td><a href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">Désinscrire</a></td>
                             </tr>
                         {% endfor %}
     
@@ -65,8 +66,8 @@
                             {# Vérifie si le stagiaire n'est pas déjà inscrit à la session #}
                             {% if session not in stagiaire.sessions %}
                                 <tr>
-                                    <td>{{ stagiaire }}</td>
-                                    <td><a href="">Inscrire</a></td>
+                                    <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
+                                    <td><a href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">Inscrire</a></td>
                                 </tr>
                             {% endif %}
                         {% endfor %}

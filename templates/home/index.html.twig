@@ -37,7 +37,10 @@
                     {# On affiche combien de stagiaire sont inscrit dans cet session #}
                     <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
                     {# Affiche le lien de désinscription #}
-                    <td class="edit"><a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a></td>
+                    <td class="edit">
+                        <a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
+                        <a href="{{ path('delete_session', {'id': session.id }) }}">Suppr</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -116,7 +119,10 @@
                     {# On affiche combien de stagiaire sont inscrit dans cet session #}
                     <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
                     {# Affiche le lien de désinscription #}
-                    <td class="edit"><a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a></td>
+                    <td class="edit">
+                        <a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
+                        <a href="{{ path('delete_session', {'id': session.id }) }}">Suppr</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

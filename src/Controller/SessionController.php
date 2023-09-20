@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use App\Repository\ModulesRepository;
 use App\Repository\SessionRepository;
@@ -66,6 +67,40 @@ class SessionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_session');
+    }
+
+    // Méthode pour ajouter un stagiaire à une session
+    #[Route('/session/addStagiaire/{id}/{stagiaire}', name: 'add_stagiaire')]
+    public function addStagiaire(Session $session, Stagiaire $stagiaire, EntityManagerInterface $entityManager): Response
+    {
+        // On ajoute le stagiaire à la session et la session au stagiaire
+        $session->addStagiaire($stagiaire);
+        // On ajoute la session au stagiaire
+        $stagiaire->addSession($session);
+        // On persiste les modifications
+        $entityManager->persist($session);
+        $entityManager->persist($stagiaire);
+        // On enregistre les modifications
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+    // Méthode pour retirer un stagiaire d'une session 
+    #[Route('/session/removeStagiaire/{id}/{stagiaire}', name: 'remove_stagiaire')]
+    public function removeStagiaire(Session $session, Stagiaire $stagiaire, EntityManagerInterface $entityManager): Response
+    {
+        // On retire le stagiaire de la session et la session du stagiaire
+        $session->removeStagiaire($stagiaire);
+        // On retire la session du stagiaire
+        $stagiaire->removeSession($session);
+        // On persiste les modifications
+        $entityManager->persist($session);
+        $entityManager->persist($stagiaire);
+        // On enregistre les modifications
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
 
     // Méthode pour afficher le détail d'une session et les modules associés
