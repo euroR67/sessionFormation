@@ -25,8 +25,7 @@
                 {% endif %}
                 {% if app.user %}
                 <li><a class="logout" href="{{ path('app_logout') }}">Logout</a></li>
-                <li><a class="profil" href="">Profil</a></li>
-                <li><a class="admin" href="">Administration</a></li>
+                <li><a class="admin" href="{{ path('app_administration') }}">Administration</a></li>
                 {% endif %}
             </ul>
         </nav>

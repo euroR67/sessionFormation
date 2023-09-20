@@ -23,28 +23,57 @@
     </div>
 
     <div class="table-grid">
-        <div class="stagiaire-inscrit">
-            <h3>Stagiaires inscrits</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Stagiaire</th>
-                        <th>Désinscrire</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {# boucle for pour afficher les stagiaires inscrits #}
-                    {% for stagiaire in session.stagiaires %}
+        <div class="stagiaire">
+            <div class="stagiaire-inscrit">
+                <h3>Stagiaires inscrits</h3>
+    
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ stagiaire }}</td>
-                            <td><a href="">Désinscrire</a></td>
+                            <th>Stagiaire</th>
+                            <th>Désinscrire</th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
+    
+                        {# boucle for pour afficher les stagiaires inscrits #}
+                        {% for stagiaire in session.stagiaires %}
+                            <tr>
+                                <td>{{ stagiaire }}</td>
+                                <td><a href="">Désinscrire</a></td>
+                            </tr>
+                        {% endfor %}
+    
+                    </tbody>
+                </table>
+            </div>
 
-                </tbody>
-            </table>
+            <div class="stagiaire-noninscrit">
+                <h3>Stagiaires non inscrits</h3>
+    
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stagiaire</th>
+                            <th>Inscrire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        {# boucle for pour afficher les stagiaires non inscrits #}
+                        {% for stagiaire in stagiaires %}
+                            {# Vérifie si le stagiaire n'est pas déjà inscrit à la session #}
+                            {% if session not in stagiaire.sessions %}
+                                <tr>
+                                    <td>{{ stagiaire }}</td>
+                                    <td><a href="">Inscrire</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+    
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="programme">
