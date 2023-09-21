@@ -8,6 +8,12 @@
 
     <h3>Sessions de cet formation</h3>
 
+    {# lien vers l'édition de la formation #}
+    <a href="{{ path('edit_formation', {'id': formation.id}) }}">Editer</a>
+
+    {# lien vers la suppression de la formation #}
+    <a href="{{ path('delete_formation', {'id': formation.id}) }}">Supprimer</a>
+
     <table>
         <thead>
             <tr>

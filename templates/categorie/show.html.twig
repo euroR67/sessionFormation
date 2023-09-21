@@ -8,6 +8,12 @@
 
     <h2>{{ categorie }}</h2>
 
+    {# lien vers l'edition de la catégorie #}
+    <a href="{{ path('edit_categorie', {'id': categorie.id}) }}">Editer</a><br>
+
+    {# lien vers la suppression de la catégorie #}
+    <a href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a><br>
+
     {# boucle for pour afficher tout les modules associés à la catégorie #}
     {% for module in categorie.modules %}
         <a href="">{{ module }}</a>
