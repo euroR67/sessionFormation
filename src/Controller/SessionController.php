@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Modules;
 use App\Entity\Session;
+use App\Entity\Programme;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use App\Repository\ModulesRepository;
@@ -113,6 +114,56 @@ class SessionController extends AbstractController
             'stagiaires' => $stagiaireRepository->findAll(),
             'modules' => $modulesRepository->findAll()
         ]);
+    }
+
+    // Méthode pour retirer un programme d'une session
+    #[Route('/session/removeProgramme/{id}/{programme}', name: 'remove_module')]
+    public function removeProgramme(Session $session, Programme $programme, EntityManagerInterface $entityManager) : Response
+    {
+        // On retire le programme de la session et la session du programme
+        $session->removeProgramme($programme);
+
+        // On persiste les modifications
+        $entityManager->persist($session);
+        $entityManager->persist($programme);
+        
+        // On enregistre les modifications
+        $entityManager->flush();
+
+        // On redirige vers la page de la session
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+    // Méthode pour ajouter un module à une session
+    #[Route('/session/addModule/{id}/{module}', name: 'add_module')]
+    public function addModule(Session $session, Modules $module, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // On récupère le nombre de jours pour le programme à ajouter
+        $nbJours = $request->request->get('duree');
+
+        // on dump/die $nbJours pour vérifier qu'il est bien récupéré
+        // dd($nbJours);
+
+        // Si le nombre de jours est bien saisi est n'est pas null
+        if($nbJours != null) {
+
+            $programme = new Programme();
+
+            // On ajoute le programme à la session et la session au programme
+            $programme->setSession($session);
+            // On ajoute le module au programme et le programme au module
+            $programme->setModule($module);
+            // On ajoute le nombre de jours au programme
+            $programme->setDureeJour($nbJours);
+
+            // Persiste les modifications
+            $entityManager->persist($programme);
+            // Enregistre les modifications
+            $entityManager->flush();
+        }
+
+        // On redirige vers la page de la session
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
     
 }

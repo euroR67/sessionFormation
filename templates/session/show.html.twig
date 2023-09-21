@@ -98,7 +98,7 @@
                                 <td>{{ programme.module }}</td>
                                 <td>{{ programme.module.categories }}</td>
                                 <td>{{ programme.dureeJour }}</td>
-                                <td><a href="">Déprogrammer</a></td>
+                                <td><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}">Déprogrammer</a></td>
                             </tr>
                         {% endfor %}
 
@@ -137,8 +137,14 @@
                                 <tr>
                                     <td>{{ module.nomModule }}</td>
                                     <td>{{ module.categories }}</td>
-                                    <td><input type="number" value="1">jours</td>
-                                    <td><a href="">Programmer</a></td>
+                                    <td>
+                                        <form action="{{ path('add_module', {'id':session.id, 'module':module.id}) }}" method="post">
+                                        <input type="number" name="duree" id="duree" value="1" min="1">
+                                    </td>
+                                    <td>
+                                        <input type="submit" name="submit" id="submit" value="Programmer">
+                                        </form>
+                                    </td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
