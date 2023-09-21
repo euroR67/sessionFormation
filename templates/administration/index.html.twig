@@ -5,10 +5,15 @@
 {% block body %}
     <h1>Panneau administrateur</h1>
 
-    <a href="{{ path('new_stagiaire') }}">Ajouter un stagiaire</a><br>
-    <a href="{{ path('new_session') }}">Ajouter une session</a><br>
-    <a href="{{ path('new_formation') }}">Ajouter une formation</a><br>
-    <a href="{{ path('new_categorie') }}">Ajouter une catégorie</a><br>
-    <a href="{{ path('new_formateur') }}">Ajouter un formateur</a><br>
+    <div class="list-ajout">
+        <ul>
+            <li><a href="{{ path('new_stagiaire') }}">Ajouter un stagiaire</a></li>
+            <li><a href="{{ path('new_session') }}">Ajouter une session</a></li>
+            <li><a href="{{ path('new_formation') }}">Ajouter une formation</a></li>
+            <li><a href="{{ path('new_categorie') }}">Ajouter une catégorie</a></li>
+            <li><a href="{{ path('new_formateur') }}">Ajouter un formateur</a></li>
+            <li><a href="{{ path('new_modules') }}">Ajouter un module</a></li>
+        </ul>
+    </div>
     
 {% endblock %}

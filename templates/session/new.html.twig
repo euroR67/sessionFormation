@@ -6,22 +6,50 @@
 
     <h1>Ajouter une nouvelle session</h1>
 
-    {{ form(form) }}
+    <div class="container">
+        {{ form_start(form) }}
+            <div class="form-group">
+                <label for="{{ form.nom_session.vars.id }}">Nom de la session</label>
+                {{ form_widget(form.nom_session, {'attr': {'class': 'form-control'}}) }}
+            </div>
+    
+            <div class="form-group">
+                <label for="{{ form.nbPlace.vars.id }}">Nombre de places</label>
+                {{ form_widget(form.nbPlace, {'attr': {'class': 'form-control'}}) }}
+            </div>
+    
+            <div class="form-group">
+                <label for="{{ form.dateSession.vars.id }}">Date de début de session</label>
+                {{ form_widget(form.dateSession, {'attr': {'class': 'form-control'}}) }}
+            </div>
+    
+            <div class="form-group">
+                <label for="{{ form.dateFin.vars.id }}">Date de fin de session</label>
+                {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+            </div>
+    
+            <div class="form-group">
+                <label for="{{ form.stagiaires.vars.id }}">Stagiaires</label>
+                {{ form_widget(form.stagiaires, {'attr': {'class': 'form-control'}}) }}
+            </div>
+    
+            <div class="form-group">
+                <label for="{{ form.formation.vars.id }}">Formation</label>
+                {{ form_widget(form.formation, {'attr': {'class': 'form-control'}}) }}
+            </div>
+    
+            <div class="form-group">
+                <label for="{{ form.formateur.vars.id }}">Formateur</label>
+                {{ form_widget(form.formateur, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    {# {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+    
 
-        {{ form_row(form.nom) }}
-        {{ form_row(form.prenom) }}
-        {{ form_row(form.dateNaissance) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.telephone) }}
-        {{ form_row(form.adresse) }}
-        {{ form_row(form.codePostal) }}
-        {{ form_row(form.ville) }}
-        {{ form_row(form.formations) }}
-
-        <button type="submit">Ajouter</button>
-
-    {{ form_end(form) }} #}
+    
 
 {% endblock %}

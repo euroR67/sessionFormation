@@ -2,17 +2,62 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Modules;
+use App\Form\ModulesType;
+use App\Repository\ModulesRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModulesController extends AbstractController
 {
     #[Route('/modules', name: 'app_modules')]
-    public function index(): Response
+    public function index(ModulesRepository $modulesRepository): Response
     {
+        $modules = $modulesRepository->findAll();
         return $this->render('modules/index.html.twig', [
-            'controller_name' => 'ModulesController',
+            'modules' => $modules,
         ]);
+    }
+
+    // Méthode pour ajouter un module et pour modifier un module
+    #[Route('/modules/add', name: 'new_modules')]
+    #[Route('/modules/{id}/edit', name: 'edit_modules')]
+    public function new_edit(Modules $modules = null, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if (!$modules) {
+            $modules = new Modules();
+        }
+
+        $form = $this->createForm(ModulesType::class, $modules);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $modules = $form->getData();
+
+            $entityManager->persist($modules);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_modules');
+
+        }
+
+        return $this->render('modules/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    // Méthode pour supprimer un module
+    #[Route('/modules/{id}/delete', name: 'delete_modules')]
+    public function delete(Modules $modules, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($modules);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_modules');
     }
 }

@@ -5,11 +5,13 @@
 {% block body %}
 
     <h1>Liste des formateurs</h1>
-
-    {% for formateur in formateurs %}
-        <a href="{{ path('show_formateur', {'id': formateur.id}) }}">{{ formateur }}</a>
-        <br>
-    {% endfor %}
-
+    
+    <div class="list-ajout">
+        <ul>
+            {% for formateur in formateurs %}
+                <li><a href="{{ path('show_formateur', {'id': formateur.id}) }}">{{ formateur }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}

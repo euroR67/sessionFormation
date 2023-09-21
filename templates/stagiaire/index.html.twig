@@ -5,10 +5,13 @@
 {% block body %}
 
     <h1>Liste des stagiaires</h1>
-
-    {% for stagiaire in stagiaires %}
-        <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a>
-        <br>
-    {% endfor %}
+    
+    <div class="list-ajout">
+        <ul>
+            {% for stagiaire in stagiaires %}
+                <li><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}

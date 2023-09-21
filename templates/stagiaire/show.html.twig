@@ -11,6 +11,8 @@
     <h3>Informations du stagiaire</h3>
 
     <a href="{{ path('edit_stagiaire', {'id': stagiaire.id }) }}">Modifier</a>
+    {# lien pour supprimer le stagiaire #}
+    <a href="{{ path('delete_stagiaire', {'id': stagiaire.id }) }}">Supprimer</a>
 
     <p>
         Téléphone : {{ stagiaire.telephone }}<br>

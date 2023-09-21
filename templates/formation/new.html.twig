@@ -6,22 +6,21 @@
 
     <h1>Ajouter une nouvelle formation</h1>
 
-    {{ form(form) }}
+   
 
-    {# {{ form_start(form) }}
+    <div class="container">
+        {{ form_start(form) }}
 
-        {{ form_row(form.nom) }}
-        {{ form_row(form.prenom) }}
-        {{ form_row(form.dateNaissance) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.telephone) }}
-        {{ form_row(form.adresse) }}
-        {{ form_row(form.codePostal) }}
-        {{ form_row(form.ville) }}
-        {{ form_row(form.formations) }}
+            <div class="form-group">
+                <label for="">Nom de la formation</label>
+                {{ form_widget(form.nomFormation, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-        <button type="submit">Ajouter</button>
+            <div class="form-group">
+                {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
 
-    {{ form_end(form) }} #}
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

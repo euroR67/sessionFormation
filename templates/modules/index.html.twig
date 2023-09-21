@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ModulesController!{% endblock %}
+{% block title %}Liste des modules{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Liste des modules</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/sessionFormation/src/Controller/ModulesController.php'|file_link(0) }}">src/Controller/ModulesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/sessionFormation/templates/modules/index.html.twig'|file_link(0) }}">templates/modules/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for module in modules %}
+                <tr>
+                    <td>{{ module }}</td>
+                    <td>{{ module.categories }}</td>
+                    <td>
+                        <a href="{{ path('edit_modules', {'id': module.id}) }}">Editer</a><br>
+                        <a href="{{ path('delete_modules', {'id': module.id}) }}">Supprimer</a><br>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
 {% endblock %}
