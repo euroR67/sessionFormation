@@ -20,8 +20,8 @@
                     <td>{{ module }}</td>
                     <td>{{ module.categories }}</td>
                     <td>
-                        <a href="{{ path('edit_modules', {'id': module.id}) }}">Editer</a><br>
-                        <a href="{{ path('delete_modules', {'id': module.id}) }}">Supprimer</a><br>
+                        <a href="{{ path('edit_modules', {'id': module.id}) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
+                        <a href="{{ path('delete_modules', {'id': module.id}) }}"><i class="fa-solid fa-xmark fa-lg" style="color: #d70404;"></i></a>
                     </td>
                 </tr>
             {% endfor %}

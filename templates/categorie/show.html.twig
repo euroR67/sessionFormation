@@ -9,10 +9,10 @@
     <h2>{{ categorie }}</h2>
 
     {# lien vers l'edition de la catégorie #}
-    <a href="{{ path('edit_categorie', {'id': categorie.id}) }}">Editer</a><br>
+    <a class="edit-form" href="{{ path('edit_categorie', {'id': categorie.id}) }}">Editer</a>
 
     {# lien vers la suppression de la catégorie #}
-    <a href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a><br>
+    <a class="supp-form" href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a><br><br>
 
     {# boucle for pour afficher tout les modules associés à la catégorie #}
     {% for module in categorie.modules %}

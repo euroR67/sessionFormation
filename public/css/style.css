@@ -225,3 +225,21 @@ label {
     margin-bottom: 10px; 
     font-weight: bold; 
 }
+
+main .fiche-stagiaire {
+    background-color: #3c4449;
+    padding: 20px;
+    color: white;
+}
+
+main .fiche-stagiaire a:first-of-type, .edit-form {
+    background-color: #ffb536;
+    padding: 5px;
+    color: white;
+}
+
+main .fiche-stagiaire a:last-of-type, .supp-form {
+    background-color: #f53f3f;
+    padding: 5px;
+    color: white;
+}

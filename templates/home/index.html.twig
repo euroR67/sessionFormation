@@ -44,8 +44,7 @@
                     <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
                     {# Affiche le lien de désinscription #}
                     <td class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
-                        <a href="{{ path('delete_session', {'id': session.id }) }}">Suppr</a>
+                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -91,8 +90,7 @@
                     <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
                     {# Affiche le lien de désinscription #}
                     <td class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
-                        <a href="{{ path('delete_session', {'id': session.id }) }}">Suppr</a>
+                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -138,8 +136,7 @@
                     <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
                     {# Affiche le lien de désinscription #}
                     <td class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
-                        <a href="{{ path('delete_session', {'id': session.id }) }}">Suppr</a>
+                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
                     </td>
                 </tr>
             {% endfor %}

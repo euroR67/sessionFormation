@@ -6,9 +6,15 @@
 
     <h1>Détail d'une session</h1>
 
-    <h2>{{ session }}</h2>
+    <h2>{{ session }} 
+        <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">
+            <i class="fa-regular fa-pen-to-square fa-lg" style="color: #d7bf1d;"></i>
+        </a>
+        <a href="{{ path('delete_session', {'id': session.id }) }}">
+            <i class="fa-solid fa-xmark fa-lg" style="color: #d70404;"></i>
+        </a>
+    </h2>
 
-    <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">Edit</a>
 
     <div class="info-session">
         <p>Formateur référent : <a href="{{ path('show_formateur', {'id': session.formateur.id}) }}">{{ session.formateur }}</a></p><br>
@@ -41,7 +47,7 @@
                             <tr>
                                 {# Nom du stagiaire avec lien vers détail stagiaire #}
                                 <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
-                                <td><a href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">Désinscrire</a></td>
+                                <td><a href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-minus" style="color: #db0606;"></i></a></td>
                             </tr>
                         {% endfor %}
     
@@ -67,7 +73,7 @@
                             {% if session not in stagiaire.sessions %}
                                 <tr>
                                     <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
-                                    <td><a href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">Inscrire</a></td>
+                                    <td><a href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-plus" style="color: #11b706;"></i></a></td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
@@ -87,7 +93,7 @@
                             <th>Module</th>
                             <th>Catégorie</th>
                             <th>Durée</th>
-                            <th>Déprogrammer</th>
+                            <th>Retirer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,7 +104,7 @@
                                 <td>{{ programme.module }}</td>
                                 <td>{{ programme.module.categories }}</td>
                                 <td>{{ programme.dureeJour }}</td>
-                                <td><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}">Déprogrammer</a></td>
+                                <td><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}"><i class="fa-regular fa-square-minus" style="color: #c91313;"></i></a></td>
                             </tr>
                         {% endfor %}
                         <tr>
@@ -123,7 +129,7 @@
                             <th>Module</th>
                             <th>Catégorie</th>
                             <th>Durée</th>
-                            <th>Programmer</th>
+                            <th>Ajout</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -151,7 +157,9 @@
                                         <input type="number" name="duree" id="duree" value="1" min="1">
                                     </td>
                                     <td>
-                                        <input type="submit" name="submit" id="submit" value="Programmer">
+                                        <button type="submit" name="submit" id="submit" style="border: none; background: none; cursor: pointer;">
+                                            <i class="fa-regular fa-square-plus" style="color: #15c621;"></i>
+                                        </button>
                                         </form>
                                     </td>
                                 </tr>

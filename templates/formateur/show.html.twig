@@ -7,10 +7,10 @@
     <h1>{{ formateur }}</h1>
 
     {# lien vers l'édition de la formation #}
-    <a href="{{ path('edit_formateur', {'id': formateur.id}) }}">Editer</a>
+    <a class="edit-form" href="{{ path('edit_formateur', {'id': formateur.id}) }}">Editer</a>
 
     {# lien vers la suppression de la formation #}
-    <a href="{{ path('delete_formateur', {'id': formateur.id}) }}">Supprimer</a>
+    <a class="supp-form" href="{{ path('delete_formateur', {'id': formateur.id}) }}">Supprimer</a>
 
     <h3>Sessions du formateur</h3>
 
