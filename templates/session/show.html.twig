@@ -68,14 +68,11 @@
                     <tbody>
     
                         {# boucle for pour afficher les stagiaires non inscrits #}
-                        {% for stagiaire in stagiaires %}
-                            {# Vérifie si le stagiaire n'est pas déjà inscrit à la session #}
-                            {% if session not in stagiaire.sessions %}
+                        {% for stagiaire in stagiairesNonInscrit %}
                                 <tr>
                                     <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
                                     <td><a href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-plus" style="color: #11b706;"></i></a></td>
                                 </tr>
-                            {% endif %}
                         {% endfor %}
     
                     </tbody>
@@ -134,36 +131,21 @@
                     </thead>
                     <tbody>
                         {# Loop through the modules #}
-                        {% for module in modules %}
-                        {# Initialize a variable to track whether the module is part of any program #}
-                        {% set isPartOfProgram = false %}
-
-                            {# Loop through the programmes of the session #}
-                            {% for programme in session.programmes %}
-                                {# Check if the current module is part of the current programme #}
-                                {% if module.nomModule == programme.module.nomModule %}
-                                    {# If it is, set the flag to true #}
-                                    {% set isPartOfProgram = true %}
-                                {% endif %}
-                            {% endfor %}
-
-                            {# If the module is not part of any program, display it #}
-                            {% if not isPartOfProgram %}
-                                <tr>
-                                    <td>{{ module.nomModule }}</td>
-                                    <td>{{ module.categories }}</td>
-                                    <td>
-                                        <form action="{{ path('add_module', {'id':session.id, 'module':module.id}) }}" method="post">
-                                        <input type="number" name="duree" id="duree" value="1" min="1">
-                                    </td>
-                                    <td>
-                                        <button type="submit" name="submit" id="submit" style="border: none; background: none; cursor: pointer;">
-                                            <i class="fa-regular fa-square-plus" style="color: #15c621;"></i>
-                                        </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            {% endif %}
+                        {% for module in modulesNonProgrammer %}
+                        <tr>
+                            <td>{{ module.nomModule }}</td>
+                            <td>{{ module.categories }}</td>
+                            <td>
+                                <form action="{{ path('add_module', {'id':session.id, 'module':module.id}) }}" method="post">
+                                <input type="number" name="duree" id="duree" value="1" min="1">
+                            </td>
+                            <td>
+                                <button type="submit" name="submit" id="submit" style="border: none; background: none; cursor: pointer;">
+                                    <i class="fa-regular fa-square-plus" style="color: #15c621;"></i>
+                                </button>
+                                </form>
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
