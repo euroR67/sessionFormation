@@ -42,6 +42,9 @@ class ModulesController extends AbstractController
             $entityManager->persist($modules);
             $entityManager->flush();
 
+            // Message flash de succès pour l'ajout ou la modification d'un module
+            $this->addFlash('success', 'Module ' . ($modules->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
+
             return $this->redirectToRoute('app_modules');
 
         }
@@ -57,6 +60,9 @@ class ModulesController extends AbstractController
     {
         $entityManager->remove($modules);
         $entityManager->flush();
+        
+        // Message flash de succès pour la suppression d'un module
+        $this->addFlash('success', 'Module supprimé avec succès !');
 
         return $this->redirectToRoute('app_modules');
     }

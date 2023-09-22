@@ -53,6 +53,9 @@ class SessionController extends AbstractController
             $entityManager->persist($session);
             $entityManager->flush();
 
+             // Message flash de succès pour l'ajout ou la modification d'une session
+            $this->addFlash('success', 'Session ' . ($session->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
+
             return $this->redirectToRoute('app_session');
         }
 
@@ -68,6 +71,9 @@ class SessionController extends AbstractController
         $entityManager->remove($session);
         $entityManager->flush();
 
+        // Message flash de succès pour la suppression d'une session
+        $this->addFlash('success', 'Session supprimée avec succès !');
+
         return $this->redirectToRoute('app_session');
     }
 
@@ -75,6 +81,14 @@ class SessionController extends AbstractController
     #[Route('/session/addStagiaire/{id}/{stagiaire}', name: 'add_stagiaire')]
     public function addStagiaire(Session $session, Stagiaire $stagiaire, EntityManagerInterface $entityManager): Response
     {
+
+        // Vérifier si la session a atteint sa capacité maximale
+        if ($session->getCapacite() <= 0) {
+            $this->addFlash('error', 'La session est complète');
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+        }
+
+
         // On ajoute le stagiaire à la session et la session au stagiaire
         $session->addStagiaire($stagiaire);
         // On ajoute la session au stagiaire
@@ -84,6 +98,8 @@ class SessionController extends AbstractController
         $entityManager->persist($stagiaire);
         // On enregistre les modifications
         $entityManager->flush();
+
+        $this->addFlash('success', 'Stagiaire inscrit avec succès !');
 
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
@@ -101,6 +117,8 @@ class SessionController extends AbstractController
         $entityManager->persist($stagiaire);
         // On enregistre les modifications
         $entityManager->flush();
+
+        $this->addFlash('success', 'Stagiaire désinscrit avec succès !');
 
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
@@ -129,6 +147,9 @@ class SessionController extends AbstractController
         
         // On enregistre les modifications
         $entityManager->flush();
+
+        // Message flash de succès
+        $this->addFlash('success', 'Programme retiré avec succès !');
 
         // On redirige vers la page de la session
         return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
@@ -160,6 +181,9 @@ class SessionController extends AbstractController
             $entityManager->persist($programme);
             // Enregistre les modifications
             $entityManager->flush();
+
+            // Message flash de succès
+            $this->addFlash('success', 'Programme ajouté avec succès !');
         }
 
         // On redirige vers la page de la session

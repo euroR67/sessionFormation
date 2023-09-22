@@ -42,6 +42,9 @@ class StagiaireController extends AbstractController
             $entityManager->persist($stagiaire);
             $entityManager->flush();
 
+            // Message flash de succès pour l'ajout ou la modification d'un stagiaire
+            $this->addFlash('success', 'Stagiaire ' . ($stagiaire->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
+
             return $this->redirectToRoute('app_stagiaire');
 
         }
@@ -57,6 +60,9 @@ class StagiaireController extends AbstractController
     {
         $entityManager->remove($stagiaire);
         $entityManager->flush();
+
+        // Message flash de succès pour la suppression d'un stagiaire
+        $this->addFlash('success', 'Stagiaire supprimé avec succès !');
 
         return $this->redirectToRoute('app_stagiaire');
     }

@@ -101,6 +101,15 @@
                                 <td><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}">Déprogrammer</a></td>
                             </tr>
                         {% endfor %}
+                        <tr>
+                            <td>Total de jours:</td>
+                            <td></td>
+                            {# affiche le total de jours de la session #}
+                            <td>
+                                {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}
+                            </td>
+                            <td></td>
+                        </tr>
 
                     </tbody>
                 </table>

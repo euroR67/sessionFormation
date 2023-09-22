@@ -32,6 +32,21 @@
             </ul>
         </nav>
     </header>
+        {# Vérifier et afficher le message flash d'erreur #}
+        {% set errorFlashes = app.flashes('error') %}
+        {% if errorFlashes is not empty %}
+            <div class="alert-danger">
+                {{ errorFlashes[0] }}
+            </div>
+        {% endif %}
+
+        {# Vérifier et afficher le message flash de succès #}
+        {% set successFlashes = app.flashes('success') %}
+        {% if successFlashes is not empty %}
+            <div class="alert-success">
+                {{ successFlashes[0] }}
+            </div>
+        {% endif %}
     <body>
         <main>
             {% block body %}{% endblock %}

@@ -43,6 +43,9 @@ class FormateurController extends AbstractController
             $entityManager->persist($formateur);
             $entityManager->flush();
 
+            // Message flash de succès pour l'ajout ou la modification d'un formateur
+            $this->addFlash('success', 'Formateur ' . ($formateur->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
+
             return $this->redirectToRoute('app_formateur');
 
         }
@@ -58,6 +61,9 @@ class FormateurController extends AbstractController
     {
         $entityManager->remove($formateur);
         $entityManager->flush();
+
+        // Message flash de succès pour la suppression d'un formateur
+        $this->addFlash('success', 'Formateur supprimé avec succès !');
 
         return $this->redirectToRoute('app_formateur');
     }

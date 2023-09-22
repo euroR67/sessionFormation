@@ -43,6 +43,9 @@ class CategorieController extends AbstractController
             $entityManager->persist($categorie);
             $entityManager->flush();
 
+            // Message flash de succès pour l'ajout ou la modification d'une catégorie
+            $this->addFlash('success', 'Catégorie ' . ($categorie->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
+
             return $this->redirectToRoute('app_categorie');
 
         }
@@ -58,6 +61,10 @@ class CategorieController extends AbstractController
     {
         $entityManager->remove($categorie);
         $entityManager->flush();
+
+        // Message flash de succès pour la suppression d'une catégorie
+        $this->addFlash('success', 'Catégorie supprimée avec succès !');
+
         return $this->redirectToRoute('app_categorie');
     }
 

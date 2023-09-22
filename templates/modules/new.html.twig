@@ -6,22 +6,24 @@
 
     <h1>Ajouter un module</h1>
 
-    {{ form(form) }}
+    <div class="container">
+        {{ form_start(form) }}
+        
+            <div class="form-group">
+                <label for="">Nom du module</label>
+                {{ form_widget(form.nomModule, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    {# {{ form_start(form) }}
+            <div class="form-group">
+                <label for="">Catégorie du module</label>
+                {{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-        {{ form_row(form.nom) }}
-        {{ form_row(form.prenom) }}
-        {{ form_row(form.dateNaissance) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.telephone) }}
-        {{ form_row(form.adresse) }}
-        {{ form_row(form.codePostal) }}
-        {{ form_row(form.ville) }}
-        {{ form_row(form.formations) }}
+            <div class="form-group">
+                {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
 
-        <button type="submit">Ajouter</button>
-
-    {{ form_end(form) }} #}
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

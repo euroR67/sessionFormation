@@ -58,6 +58,17 @@ class Session
         return $this->id;
     }
 
+    // Méthode pour calculer la capacité restante
+    public function getCapacite(): int
+    {
+        if ($this->getNbPlace() !== null) {
+            return $this->getNbPlace() - $this->getStagiaires()->count();
+        }
+        
+        return 0; // Par défaut, retournez 0 si nbPlace n'est pas défini.
+    }
+
+
     public function getNomSession(): ?string
     {
         return $this->nom_session;

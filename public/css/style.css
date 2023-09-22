@@ -83,7 +83,12 @@ main table thead tr th{
     border-bottom: 2px solid rgb(197, 193, 193);
 }
 
-main table tbody .status {
+main table tbody .status-complet {
+    background-color: #f53f3f;
+    font-size: 10px;
+}
+
+main table tbody .status-incomplet {
     background-color: #0d8ce0;
     font-size: 10px;
 }
@@ -197,4 +202,26 @@ label {
 /* Style au survol */
 .list-ajout ul li a:hover {
     background-color: #0056b3;
+}
+
+.alert-danger {
+    background-color:#63737d;
+    border-left: 10px solid rgb(208, 0, 0);
+    color: white; 
+    margin-top: 10px;
+    padding: 15px; 
+    border-radius: 4px; 
+    margin-bottom: 10px; 
+    font-weight: bold; 
+}
+
+.alert-success {
+    background-color:#63737d; 
+    border-left: 10px solid rgb(0, 208, 0);
+    color: white; 
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 4px; 
+    margin-bottom: 10px; 
+    font-weight: bold; 
 }
