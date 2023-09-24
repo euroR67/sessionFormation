@@ -69,8 +69,16 @@ class StagiaireController extends AbstractController
 
     // Méthode pour afficher le détail d'un stagiaire
     #[Route('/stagiaire/{id}', name: 'show_stagiaire')]
-    public function show(Stagiaire $stagiaire): Response
+    public function show($id, StagiaireRepository $stagiaireRepository): Response
     {
+
+        $stagiaire = $stagiaireRepository->find($id);
+
+        if (!$stagiaire) {
+            $this->addFlash('error', 'Page demandé non trouvée !');
+            return $this->redirectToRoute('app_stagiaire');
+        }
+
         return $this->render('stagiaire/show.html.twig', [
             'stagiaire' => $stagiaire,
         ]);

@@ -72,6 +72,15 @@ class CategorieController extends AbstractController
     #[Route('/categorie/{id}', name: 'show_categorie')]
     public function show($id, CategorieRepository $categorieRepository, ModulesRepository $modulesRepository): Response
     {
+
+        // Utilisez directement l'ID de la catégorie sans ParamConverter
+        $categorie = $categorieRepository->find($id);
+
+        if(!$categorie){
+            $this->addFlash('error', 'La catégorie demandée n\'existe pas !');
+            return $this->redirectToRoute('app_categorie');
+        }
+
         $categorie = $categorieRepository->find($id);
         $modules = $modulesRepository->findModulesByCategorie($id);
         return $this->render('categorie/show.html.twig', [

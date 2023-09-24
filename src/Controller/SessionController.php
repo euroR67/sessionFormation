@@ -125,8 +125,17 @@ class SessionController extends AbstractController
 
     // Méthode pour afficher le détail d'une session et les modules associés
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(SessionRepository $sessionRepository, StagiaireRepository $stagiaireRepository,Session $session, ModulesRepository $modulesRepository): Response
+    public function show($id,SessionRepository $sessionRepository, StagiaireRepository $stagiaireRepository, ModulesRepository $modulesRepository): Response
     {
+        // Utilisez directement l'ID de la session sans ParamConverter
+        $session = $sessionRepository->find($id);
+
+         // À ce stade, $session contiendra soit une instance valide de Session, soit null si l'ID n'existe pas.
+        if (!$session) {
+            // Gérer le cas où l'ID de la session n'existe pas, rediriger vers la liste des sessions avec un message flash d'erreur
+            $this->addFlash('error', 'La session demandée n\'existe pas');
+            return $this->redirectToRoute('app_session');
+        }
 
         $stagiairesNonInscrit = $sessionRepository->findNonInscrits($session->getId());
         $modulesNonProgrammer = $sessionRepository->findNonProgrammer($session->getId());

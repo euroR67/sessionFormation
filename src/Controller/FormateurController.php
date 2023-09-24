@@ -72,6 +72,16 @@ class FormateurController extends AbstractController
     #[Route('/formateur/{id}', name: 'show_formateur')]
     public function show(int $id, FormateurRepository $formateurRepository, SessionRepository $sessionRepository): Response
     {
+
+        // Utilisez directement l'ID du formateur sans ParamConverter
+        $formateur = $formateurRepository->find($id);
+
+        // à ce stade, $formateur contiendra soit une instance valide de formateur, soit null si l'ID n'existe pas
+        if (!$formateur) {
+            $this->addFlash('error', 'Cet page n\'existe pas !');
+            return $this->redirectToRoute('app_formateur');
+        }
+
         $formateur = $formateurRepository->find($id);
         $sessions = $sessionRepository->findSessionsByFormateur($id);
         return $this->render('formateur/show.html.twig', [

@@ -73,6 +73,16 @@ class FormationController extends AbstractController
     #[Route('/formation/{id}', name: 'show_formation')]
     public function show(int $id, FormationRepository $formationRepository, SessionRepository $sessionRepository): Response
     {
+
+        // Utilisez directement l'ID de la formation sans ParamConverter
+        $formation = $formationRepository->find($id);
+
+        // à ce stade, $formation contiendra soit une instance valide de formation, soit null si l'ID n'existe pas
+        if (!$formation) {
+            $this->addFlash('error', 'La formation demandée n\'existe pas !');
+            return $this->redirectToRoute('app_formation');
+        }
+
         $formation = $formationRepository->find($id);
         $sessions = $sessionRepository->findSessionsByFormation($id);
         return $this->render('formation/show.html.twig', [
