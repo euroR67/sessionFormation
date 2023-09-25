@@ -11,8 +11,36 @@
     {# lien vers l'édition de la formation #}
     <a href="{{ path('edit_formation', {'id': formation.id}) }}">Editer</a>
 
-    {# lien vers la suppression de la formation #}
-    <a href="{{ path('delete_formation', {'id': formation.id}) }}">Supprimer</a>
+    <button class="supp-form">Supprimer</button>
+
+    <div class="modal">
+        <div class="confirm-delete">
+            <p>Êtes-vous sûr de vouloir supprimer {{ formation }} ? cet action est irréversible.</p><br>
+            <p>Toutes les session de cette formation seront également supprimer.</p><br>
+            {# lien vers la suppression de la formation #}
+            <a class="supp-form" href="{{ path('delete_formation', {'id': formation.id}) }}">Supprimer</a>
+            <button class="cancel">Annuler</button>
+        </div>
+    </div>
+
+    <script>
+
+        // On récupère les éléments du DOM
+        const modal = document.querySelector('.modal');
+        const btnSupp = document.querySelector('.supp-form');
+        const btnCancel = document.querySelector('.cancel');
+
+        // On ajoute un écouteur d'évènement sur le bouton de suppression
+        btnSupp.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+
+        // On ajoute un écouteur d'évènement sur le bouton d'annulation
+        btnCancel.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+    </script>
 
     <table>
         <thead>
