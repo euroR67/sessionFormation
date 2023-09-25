@@ -24,35 +24,33 @@ class SessionRepository extends ServiceEntityRepository
     // Fonction requête DQL pour afficher les stagiaires non inscrit
     public function findNonInscrits($session_id)
     {
+
         // Récupérer l'entity manager
         $entityManager = $this->getEntityManager();
-        
+
+        // Créer un query builder comme sous requête
+        $subQuery = $entityManager->createQueryBuilder();
+        // Créer la sous-requête pour sélectionner les stagiaires inscrits
+        $subQuery->select('stagiaire.id')
+            ->from('App\Entity\Stagiaire', 'stagiaire')
+            ->innerJoin('stagiaire.sessions', 'session')
+            ->where('session.id = :session_id');
+
         // Créer un query builder
-        $sub = $entityManager->createQueryBuilder();
-
-        $queryBuilder = $sub;
-
-        // Sélectionner tous les stagiaires d'une session dont l'id est passé en paramètre
-        $queryBuilder->select('s')
-            ->from('App\Entity\Stagiaire', 's')
-            ->leftJoin('s.sessions', 'se')
-            ->where('se.id = :id');
-
-        $sub = $entityManager->createQueryBuilder();
-        // Sélectionner tous les stagiaires qui ne SONT PAS(NOT IN) dans le résultat précédent
-        // On obtient donc les stagiaires non inscrits pour une session défini
-        $sub->select('st')
+        $qb = $entityManager->createQueryBuilder();
+        // Utiliser la sous-requête pour sélectionner les stagiaires non inscrits
+        $qb->select('st')
             ->from('App\Entity\Stagiaire', 'st')
-            ->where($sub->expr()->notIn('st.id', $queryBuilder->getDQL()))
-            // Requête paramétrée
-            ->setParameter('id', $session_id)
-            // trier la liste des stagiaires sur le nom de famille
+            ->where($qb->expr()->notIn('st.id', $subQuery->getDQL()))
+            ->setParameter('session_id', $session_id)
             ->orderBy('st.nom');
 
-        // renvoyer le résultat
-        $query = $sub->getQuery();
-        return $query->getResult();
+        // Exécuter la requête
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
     }
+    
 
     // Fonction requête DQL pour afficher les modules non présente dans la session
     public function findNonProgrammer($session_id)
@@ -60,34 +58,28 @@ class SessionRepository extends ServiceEntityRepository
         // Récupérer l'entity manager
         $entityManager = $this->getEntityManager();
 
+        // Créer un query builder comme sous requête
+        $subQuery = $entityManager->createQueryBuilder();
+        // Créer un query builder pour la sous-requête qui sélectionne les IDs des modules déjà programmés
+        // On extrait l'ID de l'entité Module liée à un programme avec la fonction IDENTITY()
+        $subQuery->select('IDENTITY(programme.module)')
+            ->from('App\Entity\Programme', 'programme')
+            ->where('programme.session = :session_id');
+
         // Créer un query builder
-        $sub = $entityManager->createQueryBuilder();
+        $qb = $entityManager->createQueryBuilder();
+        // Utiliser la sous-requête pour sélectionner les modules non présents dans la session
+        $qb->select('module')
+            ->from('App\Entity\Modules', 'module')
+            // On utilise la fonction NOT IN pour sélectionner les modules dont l'ID n'est pas dans la sous-requête
+            ->where($qb->expr()->notIn('module.id', $subQuery->getDQL()))
+            ->setParameter('session_id', $session_id)
+            ->orderBy('module.nomModule');
 
-        // On copie le query builder initial dans une autre variable
-        $queryBuilder = $sub;
+        // Exécuter la requête
+        $result = $qb->getQuery()->getResult();
 
-        // Sélectionner tous les modules d'une session dont l'id est passé en paramètre
-        $queryBuilder->select('m')
-            ->from('App\Entity\Programme', 'm')
-            ->leftJoin('m.session', 'se')
-            ->where('se.id = :id');
-
-        // Créer un autre query builder
-        $sub = $entityManager->createQueryBuilder();
-        // Sélectionner tous les modules qui ne SONT PAS(NOT IN) dans le résultat précédent
-        // On obtient donc les modules non présente dans la session défini
-        $sub->select('mo')
-            ->from('App\Entity\Modules', 'mo')
-            ->where($sub->expr()->notIn('mo.id', $queryBuilder->getDQL()))
-            // Requête paramétrée
-            ->setParameter('id', $session_id)
-            // trier la liste des modules sur le nom
-            ->orderBy('mo.nomModule');
-        
-        // On obtient la requête DQL finale en utilisant getQuery();
-        $query = $sub->getQuery();
-        // renvoyer le résultat
-        return $query->getResult();
+        return $result;
     }
 
     // Fonction requête DQL pour récupérer les sessions qui sont actuellement en cours

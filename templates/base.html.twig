@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,26 +14,58 @@
         {% endblock %}
     </head>
     <header>
+        <div class="nav">
+            <div class="bars">
+                <i class="fa-solid fa-bars fa-2xl" style="color: #0056b3"></i>
+            </div>
+            <a href="{{ path('app_home') }}" class="logo">EF App</a>
+        </div>
         <nav>
+            <a href="{{ path('app_home') }}" class="logo-menu">EF App</a>
             <ul>
-                <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                <li><a href="{{ path('app_formation') }}">Formations</a></li>
-                <li><a href="{{ path('app_session') }}">Sessions</a></li>
-                <li><a href="{{ path('app_modules') }}">Modules</a></li>
-                <li><a href="{{ path('app_stagiaire') }}">Stagiaires</a></li>
-                <li><a href="{{ path('app_formateur') }}">Formateurs</a></li>
-                <li><a href="{{ path('app_categorie') }}">Catégories</a></li>
+                <li><a href="{{ path('app_home') }}"><i class="fa-solid fa-house"></i> Accueil</a></li>
+                <li><a href="{{ path('app_formation') }}"><i class="fa-solid fa-graduation-cap"></i> Formations</a></li>
+                <li><a href="{{ path('app_session') }}"><i class="fa-solid fa-list"></i> Sessions</a></li>
+                <li><a href="{{ path('app_modules') }}"><i class="fa-solid fa-clipboard-list"></i> Modules</a></li>
+                <li><a href="{{ path('app_stagiaire') }}"><i class="fa-solid fa-user-group"></i> Stagiaires</a></li>
+                <li><a href="{{ path('app_formateur') }}"><i class="fa-solid fa-user-tie"></i> Formateurs</a></li>
+                <li><a href="{{ path('app_categorie') }}"><i class="fa-solid fa-layer-group"></i> Catégories</a></li>
                 {# Si l'utilisateur n'est pas connecté on affiche le lien vers login #}
                 {% if not app.user %}
                     <li><a class="login" href="{{ path('app_login') }}">Login</a></li>
                 {% endif %}
                 {% if app.user %}
-                <li><a class="logout" href="{{ path('app_logout') }}">Logout</a></li>
-                <li><a class="admin" href="{{ path('app_administration') }}">Administration</a></li>
+                <li><a class="logout" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                <li><a class="admin" href="{{ path('app_administration') }}"><i class="fa-solid fa-shield-cat"></i> Administration</a></li>
                 {% endif %}
             </ul>
         </nav>
+        <div class="overlay"></div>
     </header>
+    <script>
+
+        // On récupère les éléments du DOM pour le menu mobile
+        const bars = document.querySelector('.bars');
+        const nav = document.querySelector('nav');
+        const overlay = document.querySelector('.overlay');
+
+        // On ajoute un écouteur d'événement sur le bouton des bars
+        bars.addEventListener('click', () => {
+            // On ajoute la classe active sur le menu
+            nav.classList.add('active');
+            // On ajoute la classe active sur l'overlay
+            overlay.classList.add('active-overlay');
+        });
+
+        // On ajoute un écouteur d'événement sur l'overlay
+        overlay.addEventListener('click', () => {
+            // On retire la classe active sur le menu
+            nav.classList.remove('active');
+            // On retire la classe active sur l'overlay
+            overlay.classList.remove('active-overlay');
+        });
+
+    </script>
         {# Vérifier et afficher le message flash d'erreur #}
         {% set errorFlashes = app.flashes('error') %}
         {% if errorFlashes is not empty %}
