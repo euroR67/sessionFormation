@@ -36,13 +36,35 @@ class SessionController extends AbstractController
             $session = new Session();
         }
 
-        $form = $this->createForm(SessionType::class, $session);
+        // Récupérez le nombre actuel de stagiaires inscrits dans la session
+        $currentNbStagiaires = $session->getNbStagiaires();
+
+        $form = $this->createForm(SessionType::class, $session, [
+            'current_nb_stagiaires' => $currentNbStagiaires, // Passez le nombre actuel de stagiaires inscrits comme option
+        ]);
 
         $form->handleRequest($request);
 
+        // Vérifiez si le formulaire a été soumis et si les données sont valides
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $session = $form->getData();
+            // Récupérez les données du formulaire
+            $sessionData = $form->getData();
+
+            // Vérifiez si la session existe déjà
+            if ($session->getId() !== null) {
+                // Session existante, vérifiez si la nouvelle valeur de nbPlace est inférieure au nombre de stagiaires inscrits
+                if ($sessionData->getNbPlace() < $session->getNbStagiaires()) {
+                    // La nouvelle valeur de nbPlace est inférieure, affichez une erreur
+                    $this->addFlash('error', 'Le nombre de place doit être supérieure ou égale à la valeur actuelle.');
+                    return $this->redirectToRoute('edit_session', ['id' => $session->getId()]);
+                }
+            } // Si la session n'existe pas, vérifiez si le nombre de places n'est pas inférieur au nombre de stagiaires selectionnés
+            elseif ($sessionData->getNbPlace() < $sessionData->getStagiaires()->count()) {
+                // La nouvelle valeur de nbPlace est inférieure, affichez une erreur
+                $this->addFlash('error', 'Le nombre de place doit être supérieure ou égale au nombre de stagiaires selectionnés.');
+                return $this->redirectToRoute('new_session');
+            }
 
             // On ajoute la session à chaque stagiaire
             foreach ($session->getStagiaires() as $stagiaire) {
@@ -56,7 +78,7 @@ class SessionController extends AbstractController
              // Message flash de succès pour l'ajout ou la modification d'une session
             $this->addFlash('success', 'Session ' . ($session->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
 
-            return $this->redirectToRoute('app_session');
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
         }
 
         return $this->render('session/new.html.twig', [

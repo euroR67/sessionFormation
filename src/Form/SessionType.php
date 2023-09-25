@@ -21,7 +21,12 @@ class SessionType extends AbstractType
     {
         $builder
             ->add('nom_session', TextType::class)
-            ->add('nbPlace', NumberType::class)
+            ->add('nbPlace', NumberType::class, [
+                'html5' => true,
+                'attr' => [
+                    'min' => $options['current_nb_stagiaires'], // Vous devez passer cette option depuis le contrôleur
+                ],
+            ])
             ->add('dateSession', DateType::class, [
                 'widget' => 'single_text'
             ])
@@ -45,11 +50,13 @@ class SessionType extends AbstractType
             ->add('valider', SubmitType::class)
         ;
     }
+    
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Session::class,
+            'current_nb_stagiaires' => null,
         ]);
     }
 }

@@ -68,6 +68,12 @@ class Session
         return 0; // Par défaut, retournez 0 si nbPlace n'est pas défini.
     }
 
+    // Méthode pour récupérer le nombre de stagiaires inscrits à une session
+    public function getNbStagiaires(): int
+    {
+        return $this->getStagiaires()->count();
+    }
+
 
     public function getNomSession(): ?string
     {
