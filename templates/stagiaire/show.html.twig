@@ -4,58 +4,114 @@
 
 {% block body %}
 
-    <h1>Fiche stagiaire</h1>
-
-    <div class="fiche-stagiaire">
-        <h2>{{ stagiaire }}</h2>
-
-        <h3>Informations du stagiaire</h3>
-
-        <a href="{{ path('edit_stagiaire', {'id': stagiaire.id }) }}">Modifier</a>
-        {# lien pour supprimer le stagiaire #}
-        <a href="{{ path('delete_stagiaire', {'id': stagiaire.id }) }}">Supprimer</a>
-
-        <p><br>
-            Téléphone : {{ stagiaire.telephone }}<br>
-            Email : {{ stagiaire.email }}<br>
-            Date de naissance : {{ stagiaire.dateNaissance|date('d/m/Y') }}<br>
-            Adresse : {{ stagiaire.ville }}<br>
-        </p>
+    <div class="banner">
+        <h2>Fiche stagiaire</h2>
     </div>
 
-    <h3>Sessions</h3>
+    <div class="wrapper">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Status</th>
-                <th>Formation</th>
-                <th>Session</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Inscrits</th>
-                <th>Désinscrire</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for session in stagiaire.sessions %}
+        <div class="fiche-stagiaire">
+            <h2><i class="fa-solid fa-user"></i> {{ stagiaire }}</h2>
+
+            <div class="modal">
+                <div class="confirm-delete">
+                    <p>Êtes-vous sûr de vouloir supprimer {{ stagiaire }} ? cet action est irréversible.</p><br>
+                    {# lien vers la suppression de la session #}
+                    <a class="supp-form" href="{{ path('delete_stagiaire', {'id': stagiaire.id }) }}">Supprimer</a>
+                    <button class="cancel">Annuler</button>
+                </div>
+            </div>
+
+                <div class="subinfo">
+                    <p><i class="fa-solid fa-phone"></i> Téléphone : {{ stagiaire.telephone }}</p>
+                    <p><i class="fa-solid fa-envelope"></i> Email : {{ stagiaire.email }}</p>
+                    <p><i class="fa-solid fa-calendar-days"></i> Date de naissance : {{ stagiaire.dateNaissance|date('d/m/Y') }}</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Adresse : {{ stagiaire.ville }}</p>
+                </div>
+            
+                <div class="action">
+                <a href="{{ path('edit_stagiaire', {'id': stagiaire.id }) }}">Modifier</a>
+                <button class="delete">Supprimer</button>
+            </div>
+        </div>
+
+        <script>
+
+            // On vérifie que tout le contenu du dom est chargé avant d'executer le script
+            document.addEventListener('DOMContentLoaded', function() {
+
+               // On récupère les éléments du DOM
+                const modal = document.querySelector('.modal');
+                // On récupère la balise i qui contient l'icone de suppression
+                const btnSupp = document.querySelector('.delete');
+                const btnCancel = document.querySelector('.cancel');
+
+                // On ajoute un écouteur d'évènement sur le bouton de suppression
+                btnSupp.addEventListener('click', function() {
+                    modal.style.display = 'block';
+                });
+
+                // On ajoute un écouteur d'évènement sur le bouton d'annulation
+                btnCancel.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            });
+
+        </script>
+
+        <h4>Stagiaire inscrit au sessions suivante :</h4>
+
+        {% for session in stagiaire.sessions %}
+        <table class="table responsive">
+            <thead>
                 <tr>
-                    <td class="status">Session incomplet</td>
-                    {# Affiche le nom de la formation dont le stagiaire est inscrit #}
-                    <td>{{ session.formation }}</td>
-                    {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
-                    <td><a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a></td>
-                    {# Affiche la date de début de la session #}
-                    <td>{{ session.dateSession|date('d/m/Y') }}</td>
-                    {# Affiche la date de fin de la session #}
-                    <td>{{ session.dateFin|date('d/m/Y') }}</td>
-                    {# On affiche combien de stagiaire sont inscrit dans cet session #}
-                    <td>{{ session.stagiaires|length }} / {{ session.nbPlace }}</td>
-                    {# Affiche le lien de désinscription #}
-                    <td class="unsign"><a href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-minus" style="color: #db0606;"></i></a></td>
+                    <th>Status</th>
+                    <th>Formation</th>
+                    <th>Session</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Inscrits</th>
+                    <th>Désinscrire</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                    {# Si la session est complète, on affiche "Session complète" #}
+                    {% if session.nbPlace == session.stagiaires|length %}
+                        <td data-label="Status" class="status-complet">Session complète</td>
+                    {# Sinon on affiche "Session incomplet" #}
+                    {% else %}
+                        <td data-label="Status" class="status-incomplet">Session incomplet</td>
+                    {% endif %}
+                    {# Affiche le nom de la formation dont le stagiaire est inscrit #}
+                    <td data-label="Formation" >
+                        <p>{{ session.formation }}</p>
+                    </td>
+                    {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
+                    <td data-label="Session">
+                        <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
+                    </td>
+                    {# Affiche la date de début de la session #}
+                    <td data-label="Date de début">
+                        <p>{{ session.dateSession|date('d/m/Y') }}</p>
+                    </td>
+                    {# Affiche la date de fin de la session #}
+                    <td data-label="Date de fin">
+                        <p>{{ session.dateFin|date('d/m/Y') }}</p>
+                    </td>
+                    {# On affiche combien de stagiaire sont inscrit dans cet session #}
+                    <td data-label="Inscrits">
+                        <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
+                    </td>
+                    {# Affiche le lien de désinscription #}
+                    <td data-label="Actions" class="edit">
+                        <a href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-minus" style="color: #db0606;"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+                    
 
 {% endblock %}

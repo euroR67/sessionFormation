@@ -4,50 +4,57 @@
 
 {% block body %}
 
-    <h1>Détail d'une catégorie</h1>
-
-    <h2>{{ categorie }}</h2>
-
-    {# lien vers l'edition de la catégorie #}
-    <a class="edit-form" href="{{ path('edit_categorie', {'id': categorie.id}) }}">Editer</a>
-
-    <button class="supp-form">Supprimer</button><br>
-
-    <div class="modal">
-        <div class="confirm-delete">
-            <p>Êtes-vous sûr de vouloir supprimer {{ categorie }} ? cet action est irréversible.</p><br>
-            <p>Tous les modules de cette catégorie seront également supprimer.</p><br>
-            {# lien vers la suppression de la catégorie #}
-            <a class="supp-form" href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a>
-            <button class="cancel">Annuler</button>
-        </div>
+    <div class="banner">
+        <h2>{{ categorie }}</h2>
     </div>
 
-    <script>
+    <div class="wrapper">
+        <div class="action">
+            {# lien vers l'edition de la catégorie #}
+        <a class="edit-form" href="{{ path('edit_categorie', {'id': categorie.id}) }}">Editer</a>
 
-        // On récupère les éléments du DOM
-        const modal = document.querySelector('.modal');
-        const btnSupp = document.querySelector('.supp-form');
-        const btnCancel = document.querySelector('.cancel');
+        <button class="supp-form">Supprimer</button><br>
+        </div>
 
-        // On ajoute un écouteur d'évènement sur le bouton de suppression
-        btnSupp.addEventListener('click', function() {
-            modal.style.display = 'block';
-        });
+        <div class="modal">
+            <div class="confirm-delete">
+                <p>Êtes-vous sûr de vouloir supprimer {{ categorie }} ? cet action est irréversible.</p><br>
+                <p>Tous les modules de cette catégorie seront également supprimer.</p><br>
+                {# lien vers la suppression de la catégorie #}
+                <a class="supp-form" href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a>
+                <button class="cancel">Annuler</button>
+            </div>
+        </div>
 
-        // On ajoute un écouteur d'évènement sur le bouton d'annulation
-        btnCancel.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
+        <script>
 
-    </script>
+            // On récupère les éléments du DOM
+            const modal = document.querySelector('.modal');
+            const btnSupp = document.querySelector('.supp-form');
+            const btnCancel = document.querySelector('.cancel');
 
-    {# boucle for pour afficher tout les modules associés à la catégorie #}
-    {% for module in categorie.modules %}
-        <a href="">{{ module }}</a>
-        <br>
-    {% endfor %}
+            // On ajoute un écouteur d'évènement sur le bouton de suppression
+            btnSupp.addEventListener('click', function() {
+                modal.style.display = 'block';
+            });
 
-    
+            // On ajoute un écouteur d'évènement sur le bouton d'annulation
+            btnCancel.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+        </script>
+
+        <div>
+            <ul class="lists">
+                {# boucle for pour afficher tout les modules associés à la catégorie #}
+                {% for module in categorie.modules %}
+                    <li><a>{{ module }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        
+    </div>
 
 {% endblock %}

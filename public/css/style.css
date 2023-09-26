@@ -209,9 +209,7 @@ main table {
 }
 
 .responsive thead {
-    visibility: hidden;
-    height: 0;
-    position: absolute;
+    display: none;
 }
 
 .responsive td {
@@ -394,13 +392,16 @@ main .home-banner {
 
 .session-detail .edit,
 .session-detail .delete {
-    background-color: #fff;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     height: 40px;
     width: 40px;
     text-align: center;
     cursor: pointer;
+}
+
+.session-detail .delete {
+    background-color: #ef2a2a;
 }
 
 .session-detail .edit:hover,
@@ -412,11 +413,13 @@ main .home-banner {
     width: 17px;
 }
 
-.session-detail .subinfo p {
+.session-detail .subinfo p,
+.wrapper .subinfo {
     margin-bottom: 5px;
 }
 
-.session-detail .subinfo {
+.session-detail .subinfo,
+.wrapper .subinfo {
     background-color: #b9b9b959;
     padding: 15px;
     border-radius: 10px;
@@ -576,10 +579,63 @@ main .home-banner {
     margin-bottom: 20px;
 }
 
-.non-programmer > h4 {
-    margin-block: 20px;
+.programme .h4 {
+    margin-top: 20px;
 }
 
 .line-one input {
     width: 30px;
+}
+
+/* Fin détail session */
+
+/* Début détail formation */
+
+.wrapper .action a,
+.wrapper .action button {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+}
+
+.wrapper .action a {
+    background-color: orange;
+}
+
+.wrapper .action a:hover {
+    background-color: rgb(254, 176, 31);
+}
+
+.wrapper .action button {
+    background-color: #ef2a2a;
+}
+
+.wrapper .action button:hover {
+    background-color: #fb5151;
+}
+
+.wrapper .fiche-stagiaire {
+    background-color: #0363ca;
+    padding: 20px;
+    color: #fff;
+}
+
+.wrapper .fiche-stagiaire h2 {
+    margin-bottom: 20px;
+}
+
+.wrapper .fiche-stagiaire .action {
+    margin-top: 20px;
+}
+
+.fiche-stagiaire .subinfo p i {
+    width: 20px;
+}
+
+.fiche-stagiaire .subinfo p{
+    margin-bottom: 5px;
 }

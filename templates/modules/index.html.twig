@@ -23,8 +23,10 @@
                         <td>{{ module }}</td>
                         <td>{{ module.categories }}</td>
                         <td class="action" >
-                            <a href="{{ path('edit_modules', {'id': module.id}) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
-                            <p><i class="fa-solid fa-xmark fa-lg" style="color: #d70404;"></i></p>
+                            <a href="{{ path('edit_modules', {'id': module.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <button>
+                                <i class="fa-solid fa-xmark fa-lg"></i>
+                            </button>
                         </td>
                     </tr>
                     <div class="modal">

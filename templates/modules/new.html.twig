@@ -4,26 +4,30 @@
 
 {% block body %}
 
-    <h1>Ajouter un module</h1>
+    <div class="banner">
+        <h2>Ajouter un module</h2>
+    </div>
 
-    <div class="container">
-        {{ form_start(form) }}
-        
-            <div class="form-group">
-                <label for="">Nom du module</label>
-                {{ form_widget(form.nomModule, {'attr': {'class': 'form-control'}}) }}
-            </div>
-
-            <div class="form-group">
-                <label for="">Catégorie du module</label>
-                {{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
-            </div>
-
-        {{ form_end(form) }}
+    <div class="wrapper">
+        <div class="container">
+            {{ form_start(form) }}
+            
+                <div class="form-group">
+                    <label for="">Nom du module</label>
+                    {{ form_widget(form.nomModule, {'attr': {'class': 'form-control'}}) }}
+                </div>
+    
+                <div class="form-group">
+                    <label for="">Catégorie du module</label>
+                    {{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+                </div>
+    
+                <div class="form-group">
+                    {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+    
+            {{ form_end(form) }}
+        </div>
     </div>
 
 {% endblock %}

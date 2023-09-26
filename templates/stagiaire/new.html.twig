@@ -4,40 +4,44 @@
 
 {% block body %}
 
-    <h1>Ajouter un nouveau stagiaire</h1>
+    <div class="banner">
+        <h2>Ajouter un nouveau stagiaire</h2>
+    </div>
 
     {# {{ form(form) }} #}
 
-    <div class="container">
-        {{ form_start(form) }}
-            <div class="form-group">
-                {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.date_naissance, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.sexe, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.ville, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.telephone, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.sessions, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
-            </div>
-            {{ form_end(form) }}
+    <div class="wrapper">
+        <div class="container">
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.date_naissance, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.sexe, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.ville, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.sessions, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+                {{ form_end(form) }}
+        </div>
     </div>
 
 {% endblock %}

@@ -54,9 +54,9 @@
                 </div>
                 <div class="action">
                     <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">
-                        <i class="fa-regular fa-pen-to-square fa-lg" style="color: #d7bf1d;"></i>
+                        <i class="fa-regular fa-pen-to-square fa-lg"></i>
                     </a>
-                    <p class="delete"><i class="fa-solid fa-xmark fa-lg" style="color: #d70404;"></i></p>
+                    <p class="delete"><i class="fa-solid fa-xmark fa-lg"></i></p>
                 </div>
                 <br>
                 {# Si il n'y a plus de place disponible on affiche un message #}
@@ -147,8 +147,8 @@
 
 
                 
+                <h4 class="h4"><i class="fa-brands fa-uncharted"></i> Modules non programmés</h4>
                 <div class="non-programmer">
-                    <h4><i class="fa-brands fa-uncharted"></i> Modules non programmés</h4>
                     {# Loop through the modules #}
                     {% for module in modulesNonProgrammer %}
                     <div class="module-on">
