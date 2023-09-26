@@ -639,3 +639,9 @@ main .home-banner {
 .fiche-stagiaire .subinfo p{
     margin-bottom: 5px;
 }
+
+footer {
+    background-color: #d8d8d8;
+    padding: 20px;
+    text-align: center;
+}

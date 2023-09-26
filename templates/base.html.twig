@@ -13,67 +13,37 @@
         {% block javascripts %}
         {% endblock %}
     </head>
-    <header>
-        <div class="nav">
-            <div class="bars">
-                <i class="fa-solid fa-bars fa-2xl" style="color: #0056b3"></i>
-            </div>
-            <a href="{{ path('app_home') }}" class="logo">EF App</a>
-        </div>
-        <nav>
-            <a href="{{ path('app_home') }}" class="logo-menu">EF App</a>
-            <ul>
-                <li><a href="{{ path('app_home') }}"><i class="fa-solid fa-house"></i> Accueil</a></li>
-                <li><a href="{{ path('app_formation') }}"><i class="fa-solid fa-graduation-cap"></i> Formations</a></li>
-                <li><a href="{{ path('app_session') }}"><i class="fa-solid fa-list"></i> Sessions</a></li>
-                <li><a href="{{ path('app_modules') }}"><i class="fa-solid fa-clipboard-list"></i> Modules</a></li>
-                <li><a href="{{ path('app_stagiaire') }}"><i class="fa-solid fa-user-group"></i> Stagiaires</a></li>
-                <li><a href="{{ path('app_formateur') }}"><i class="fa-solid fa-user-tie"></i> Formateurs</a></li>
-                <li><a href="{{ path('app_categorie') }}"><i class="fa-solid fa-layer-group"></i> Catégories</a></li>
-                {# Si l'utilisateur n'est pas connecté on affiche le lien vers login #}
-                {% if not app.user %}
-                    <li><a class="login" href="{{ path('app_login') }}"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
-                {% endif %}
-                {% if app.user %}
-                <li><a class="logout" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-                <li><a class="admin" href="{{ path('app_administration') }}"><i class="fa-solid fa-shield-cat"></i> Administration</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        <div class="overlay"></div>
-    </header>
-    <script>
-
-        // On récupère les éléments du DOM pour le menu mobile
-        const bars = document.querySelector('.bars');
-        const nav = document.querySelector('nav');
-        const overlay = document.querySelector('.overlay');
-
-        // On ajoute un écouteur d'événement sur le bouton des bars
-        bars.addEventListener('click', () => {
-            // On ajoute la classe active sur le menu
-            nav.classList.add('active');
-            // On ajoute la classe active sur l'overlay
-            overlay.classList.add('active-overlay');
-            
-            // On désactive le défilement du corps de la page
-            document.body.style.overflow = 'hidden';
-        });
-
-        // On ajoute un écouteur d'événement sur l'overlay
-        overlay.addEventListener('click', () => {
-            // On retire la classe active sur le menu
-            nav.classList.remove('active');
-            // On retire la classe active sur l'overlay
-            overlay.classList.remove('active-overlay');
-            
-            // On réactive le défilement du corps de la page
-            document.body.style.overflow = 'auto';
-        });
-
-
-    </script>
+    
     <body>
+        <header>
+            <div class="nav">
+                <div class="bars">
+                    <i class="fa-solid fa-bars fa-2xl" style="color: #0056b3"></i>
+                </div>
+                <a href="{{ path('app_home') }}" class="logo">EF App</a>
+            </div>
+            <nav>
+                <a href="{{ path('app_home') }}" class="logo-menu">EF App</a>
+                <ul>
+                    <li><a href="{{ path('app_home') }}"><i class="fa-solid fa-house"></i> Accueil</a></li>
+                    <li><a href="{{ path('app_formation') }}"><i class="fa-solid fa-graduation-cap"></i> Formations</a></li>
+                    <li><a href="{{ path('app_session') }}"><i class="fa-solid fa-list"></i> Sessions</a></li>
+                    <li><a href="{{ path('app_modules') }}"><i class="fa-solid fa-clipboard-list"></i> Modules</a></li>
+                    <li><a href="{{ path('app_stagiaire') }}"><i class="fa-solid fa-user-group"></i> Stagiaires</a></li>
+                    <li><a href="{{ path('app_formateur') }}"><i class="fa-solid fa-user-tie"></i> Formateurs</a></li>
+                    <li><a href="{{ path('app_categorie') }}"><i class="fa-solid fa-layer-group"></i> Catégories</a></li>
+                    {# Si l'utilisateur n'est pas connecté on affiche le lien vers login #}
+                    {% if not app.user %}
+                        <li><a class="login" href="{{ path('app_login') }}"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+                    {% endif %}
+                    {% if app.user %}
+                    <li><a class="logout" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    <li><a class="admin" href="{{ path('app_administration') }}"><i class="fa-solid fa-shield-cat"></i> Administration</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <div class="overlay"></div>
+        </header>
         <main>
             {# Vérifier et afficher le message flash d'erreur #}
             {% set errorFlashes = app.flashes('error') %}
@@ -105,5 +75,40 @@
             {% block body %}{% endblock %}
 
         </main>
+        <script>
+
+            // On récupère les éléments du DOM pour le menu mobile
+            const bars = document.querySelector('.bars');
+            const nav = document.querySelector('nav');
+            const overlay = document.querySelector('.overlay');
+    
+            // On ajoute un écouteur d'événement sur le bouton des bars
+            bars.addEventListener('click', () => {
+                // On ajoute la classe active sur le menu
+                nav.classList.add('active');
+                // On ajoute la classe active sur l'overlay
+                overlay.classList.add('active-overlay');
+                
+                // On désactive le défilement du corps de la page
+                document.body.style.overflow = 'hidden';
+            });
+    
+            // On ajoute un écouteur d'événement sur l'overlay
+            overlay.addEventListener('click', () => {
+                // On retire la classe active sur le menu
+                nav.classList.remove('active');
+                // On retire la classe active sur l'overlay
+                overlay.classList.remove('active-overlay');
+                
+                // On réactive le défilement du corps de la page
+                document.body.style.overflow = 'auto';
+            });
+    
+    
+        </script>
+        <footer>
+            <h3>© 2023 - EF App</h3>
+            <h2>By Chamaev Mansour</h2>
+        </footer>
     </body>
 </html>
