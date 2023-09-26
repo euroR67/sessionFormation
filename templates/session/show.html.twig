@@ -149,36 +149,39 @@
                 
                 <div class="non-programmer">
                     <h4><i class="fa-brands fa-uncharted"></i> Modules non programmés</h4>
-    
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Module</th>
-                                <th>Catégorie</th>
-                                <th>Durée</th>
-                                <th>Ajout</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {# Loop through the modules #}
-                            {% for module in modulesNonProgrammer %}
-                            <tr>
-                                <td>{{ module.nomModule }}</td>
-                                <td>{{ module.categories }}</td>
-                                <td>
+                    {# Loop through the modules #}
+                    {% for module in modulesNonProgrammer %}
+                    <div class="module-on">
+                        <div class="first">
+                            <div class="line-one">
+                                <p class="light">Module</p>
+                                <p>{{ module.nomModule }}</p>
+                            </div>
+                            <div class="line-two">
+                                <p class="light">Catégorie</p>
+                                <p>{{ module.categories }}</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="second">
+                            <div class="line-one">
+                                <p class="light">Durée</p>
+                                <p>
                                     <form action="{{ path('add_module', {'id':session.id, 'module':module.id}) }}" method="post">
-                                    <input type="number" name="duree" id="duree" value="1" min="1">
-                                </td>
-                                <td>
+                                    <input class="duree" type="number" name="duree" id="duree" value="1" min="1">
+                                </p>
+                            </div>
+                            <div class="line-two">
+                                <p class="light">Ajout</p>
+                                <p>
                                     <button type="submit" name="submit" id="submit" style="border: none; background: none; cursor: pointer;">
-                                        <i class="fa-regular fa-square-plus" style="color: #15c621;"></i>
+                                        <i class="fa-regular fa-square-plus fa-xl" style="color: #15c621;"></i>
                                     </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -530,7 +530,8 @@ main .home-banner {
     gap: 20px;
 }
 
-.programmer {
+.programmer,
+.non-programmer {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -569,4 +570,16 @@ main .home-banner {
 
 .total p {
     color: #000;
+}
+
+.programme > h4 {
+    margin-bottom: 20px;
+}
+
+.non-programmer > h4 {
+    margin-block: 20px;
+}
+
+.line-one input {
+    width: 30px;
 }
