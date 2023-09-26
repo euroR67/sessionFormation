@@ -9,7 +9,7 @@
 
     <div class="wrapper">
         <div>
-            <ul>
+            <ul class="lists">
                 {% for categorie in categories %}
                     <li><a href="{{ path('show_categorie', {'id': categorie.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ categorie }}</a></li>
                 {% endfor %}

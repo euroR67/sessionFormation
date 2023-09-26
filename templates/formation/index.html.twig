@@ -9,7 +9,7 @@
     </div>
     <div class="wrapper">
         <div>
-            <ul>
+            <ul class="lists">
                 {% for formation in formations %}
                     <li><a href="{{ path('show_formation', {'id': formation.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ formation }}</a></li>
                 {% endfor %}

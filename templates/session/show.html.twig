@@ -22,143 +22,133 @@
             </div>
             <script>
 
-                // On récupère les éléments du DOM
-                const modal = document.querySelector('.modal');
-                // On récupère la balise i qui contient l'icone de suppression
-                const btnSupp = document.querySelector('.fa-xmark');
-                const btnCancel = document.querySelector('.cancel');
+                // On vérifie que tout le contenu du dom est chargé avant d'executer le script
+                document.addEventListener('DOMContentLoaded', function() {
 
-                // On ajoute un écouteur d'évènement sur le bouton de suppression
-                btnSupp.addEventListener('click', function() {
-                    modal.style.display = 'block';
-                });
+                   // On récupère les éléments du DOM
+                    const modal = document.querySelector('.modal');
+                    // On récupère la balise i qui contient l'icone de suppression
+                    const btnSupp = document.querySelector('.delete');
+                    const btnCancel = document.querySelector('.cancel');
 
-                // On ajoute un écouteur d'évènement sur le bouton d'annulation
-                btnCancel.addEventListener('click', function() {
-                    modal.style.display = 'none';
+                    // On ajoute un écouteur d'évènement sur le bouton de suppression
+                    btnSupp.addEventListener('click', function() {
+                        modal.style.display = 'block';
+                    });
+
+                    // On ajoute un écouteur d'évènement sur le bouton d'annulation
+                    btnCancel.addEventListener('click', function() {
+                        modal.style.display = 'none';
+                    });
                 });
 
             </script>
             <div>
                 <p>Formateur référent : <a href="{{ path('show_formateur', {'id': session.formateur.id}) }}">{{ session.formateur }}</a></p><br>
-
-                <p>
-                    Date de début : {{ session.dateSession|date('d/m/Y') }}<br>
-                    Date de fin : {{ session.dateFin|date('d/m/Y') }}<br>
-                    Nombre de place : {{ session.nbPlace }}<br>
-                    Nombre de places disponibles : {{ session.nbPlace - session.stagiaires|length }}<br>
-                    Nombre de modules : {{ session.programmes|length }}<br>
-                </p>
+                <div class="subinfo">
+                    <p><i class="fa-solid fa-calendar-days"></i> Date de début : {{ session.dateSession|date('d/m/Y') }}</p>
+                    <p><i class="fa-solid fa-calendar-days"></i> Date de fin : {{ session.dateFin|date('d/m/Y') }}</p>
+                    <p><i class="fa-solid fa-chair"></i> Nombre de place : {{ session.nbPlace }}</p>
+                    <p><i class="fa-solid fa-chair"></i> Nombre de places disponibles : {{ session.nbPlace - session.stagiaires|length }}</p>
+                    <p><i class="fa-solid fa-clipboard-list"></i> Nombre de modules : {{ session.programmes|length }}</p>
+                </div>
                 <div class="action">
                     <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">
                         <i class="fa-regular fa-pen-to-square fa-lg" style="color: #d7bf1d;"></i>
                     </a>
-                    <p><i class="fa-solid fa-xmark fa-lg" style="color: #d70404;"></i></p>
+                    <p class="delete"><i class="fa-solid fa-xmark fa-lg" style="color: #d70404;"></i></p>
                 </div>
                 <br>
                 {# Si il n'y a plus de place disponible on affiche un message #}
                 {% if session.nbPlace - session.stagiaires|length == 0 %}
-                    <p style="color: rgb(248, 60, 60);">Il n'y a plus de place disponible pour cette session.</p>
+                    <p class="no-slot">Il n'y a plus de place disponible pour cette session.</p>
                 {% endif %}
             </div>
         </div>
     
         <div class="table-grid">
             <div class="stagiaire">
+                <h4><i class="fa-regular fa-square-check"></i> Stagiaires inscrits</h4>
                 <div class="stagiaire-inscrit">
-                    <h4>Stagiaires inscrits</h4>
-        
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Stagiaire</th>
-                                <th>Désinscrire</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-        
-                            {# boucle for pour afficher les stagiaires inscrits #}
-                            {% for stagiaire in session.stagiaires %}
-                                <tr>
-                                    {# Nom du stagiaire avec lien vers détail stagiaire #}
-                                    <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
-                                    <td><a href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-minus" style="color: #db0606;"></i></a></td>
-                                </tr>
-                            {% endfor %}
-        
-                        </tbody>
-                    </table>
+                    <ul>
+                        {# boucle for pour afficher les stagiaires inscrits #}
+                        {% for stagiaire in session.stagiaires %}
+                        {# Nom du stagiaire avec lien vers détail stagiaire #}
+                        <li>
+                            <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
+                                <i class="fa-solid fa-user"></i> {{ stagiaire }}
+                            </a>
+                            <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
                 </div>
     
+                <h4><i class="fa-regular fa-square-minus"></i> Stagiaires non inscrits</h4>
                 <div class="stagiaire-noninscrit">
-                    <h4>Stagiaires non inscrits</h4>
-        
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Stagiaire</th>
-                                <th>Inscrire</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-        
-                            {# boucle for pour afficher les stagiaires non inscrits #}
-                            {% for stagiaire in stagiairesNonInscrit %}
-                                    <tr>
-                                        <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
-                                        {# on affiche l'icon inscrire stagiaire si il reste de la place sinon, on affiche un message #}
-                                        {% if session.nbPlace - session.stagiaires|length > 0 %}
-                                            <td><a href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}"><i class="fa-solid fa-user-plus" style="color: #15c621;"></i></a></td>
-                                        {% else %}
-                                            <td><p style="color: rgb(248, 60, 60);">Complet</p></td>
-                                        {% endif %}
-                                    </tr>
-                            {% endfor %}
-        
-                        </tbody>
-                    </table>
+                    <ul>
+                        {# boucle for pour afficher les stagiaires non inscrits #}
+                        {% for stagiaire in stagiairesNonInscrit %}
+                        <li>
+                            <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
+                                <i class="fa-solid fa-user"></i> {{ stagiaire }}
+                            </a>
+                            {% if session.nbPlace - session.stagiaires|length > 0 %}
+                            <a class="add" href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                <i class="fa-solid fa-user-plus" style="color: #15c621;"></i>
+                            </a>
+                        </li>
+                        {# on affiche l'icon inscrire stagiaire si il reste de la place sinon, on affiche un message #}
+                        {% else %}
+                            <p class="complet" style="color: rgb(248, 60, 60);">Complet</p>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
     
             <div class="programme">
+                <h4><i class="fa-brands fa-uncharted"></i> Programme</h4>
                 <div class="programmer">
-                    <h4>Programme</h4>
-    
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Module</th>
-                                <th>Catégorie</th>
-                                <th>Durée</th>
-                                <th>Retirer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    
-                            {# boucle for pour afficher les modules du programme #}
-                            {% for programme in session.programmes %}
-                                <tr>
-                                    <td>{{ programme.module }}</td>
-                                    <td>{{ programme.module.categories }}</td>
-                                    <td>{{ programme.dureeJour }}</td>
-                                    <td><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}"><i class="fa-regular fa-square-minus" style="color: #c91313;"></i></a></td>
-                                </tr>
-                            {% endfor %}
-                            <tr>
-                                <td>Total de jours:</td>
-                                <td></td>
-                                {# affiche le total de jours de la session #}
-                                <td>
-                                    {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}
-                                </td>
-                                <td></td>
-                            </tr>
-    
-                        </tbody>
-                    </table>
+                    {# boucle for pour afficher les modules du programme #}
+                    {% for programme in session.programmes %}
+                    <div class="module-on">
+                        <div class="first">
+                            <div class="line-one">
+                                <p class="light">Module</p>
+                                <p>{{ programme.module }}</p>
+                            </div>
+                            <div class="line-two">
+                                <p class="light">Catégorie</p>
+                                <p>{{ programme.module.categories }}</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="second">
+                            <div class="line-one">
+                                <p class="light">Durée</p>
+                                <p>{{ programme.dureeJour }}</p>
+                            </div>
+                            <div class="line-two">
+                                <p class="light">Retirer</p>
+                                <p><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}"><i class="fa-regular fa-square-minus" style="color: #c91313;"></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
+                <div class="total">
+                    <p>Total de jours : {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}</p>
+                </div>
+
+
+
+                
                 <div class="non-programmer">
-                    <h4>Modules non programmés</h4>
+                    <h4><i class="fa-brands fa-uncharted"></i> Modules non programmés</h4>
     
                     <table>
                         <thead>

@@ -10,7 +10,7 @@
     
     <div class="wrapper">
         <div>
-            <ul>
+            <ul class="lists">
                 {% for stagiaire in stagiaires %}
                     <li><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ stagiaire }}</a></li>
                 {% endfor %}
