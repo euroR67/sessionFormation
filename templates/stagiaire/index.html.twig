@@ -4,14 +4,18 @@
 
 {% block body %}
 
-    <h1>Liste des stagiaires</h1>
+    <div class="banner">
+        <h2>Liste des stagiaires</h2>
+    </div>
     
-    <div class="list-ajout">
-        <ul>
-            {% for stagiaire in stagiaires %}
-                <li><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="wrapper">
+        <div>
+            <ul>
+                {% for stagiaire in stagiaires %}
+                    <li><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ stagiaire }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 {% endblock %}

@@ -4,14 +4,18 @@
 
 {% block body %}
 
-    <h1>Liste des formateurs</h1>
+    <div class="banner">
+        <h2>Liste des formateurs</h2>
+    </div>
     
-    <div class="list-ajout">
-        <ul>
-            {% for formateur in formateurs %}
-                <li><a href="{{ path('show_formateur', {'id': formateur.id}) }}">{{ formateur }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="wrapper">
+        <div>
+            <ul>
+                {% for formateur in formateurs %}
+                    <li><a href="{{ path('show_formateur', {'id': formateur.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ formateur }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 {% endblock %}

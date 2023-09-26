@@ -3,17 +3,22 @@
 {% block title %}Panneau administrateur{% endblock %}
 
 {% block body %}
-    <h1>Panneau administrateur</h1>
+    
+    <div class="banner">
+        <h2>Panneau administrateur</h2>
+    </div>
 
-    <div class="list-ajout">
-        <ul>
-            <li><a href="{{ path('new_stagiaire') }}">Ajouter un stagiaire</a></li>
-            <li><a href="{{ path('new_session') }}">Ajouter une session</a></li>
-            <li><a href="{{ path('new_formation') }}">Ajouter une formation</a></li>
-            <li><a href="{{ path('new_categorie') }}">Ajouter une catégorie</a></li>
-            <li><a href="{{ path('new_formateur') }}">Ajouter un formateur</a></li>
-            <li><a href="{{ path('new_modules') }}">Ajouter un module</a></li>
-        </ul>
+    <div class="wrapper">
+        <div>
+            <ul>
+                <li><a href="{{ path('new_stagiaire') }}"><i class="fa-solid fa-square-plus"></i> Ajouter un stagiaire</a></li>
+                <li><a href="{{ path('new_session') }}"><i class="fa-solid fa-square-plus"></i> Ajouter une session</a></li>
+                <li><a href="{{ path('new_formation') }}"><i class="fa-solid fa-square-plus"></i> Ajouter une formation</a></li>
+                <li><a href="{{ path('new_categorie') }}"><i class="fa-solid fa-square-plus"></i> Ajouter une catégorie</a></li>
+                <li><a href="{{ path('new_formateur') }}"><i class="fa-solid fa-square-plus"></i> Ajouter un formateur</a></li>
+                <li><a href="{{ path('new_modules') }}"><i class="fa-solid fa-square-plus"></i> Ajouter un module</a></li>
+            </ul>
+        </div>
     </div>
     
 {% endblock %}

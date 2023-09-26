@@ -10,7 +10,7 @@
 header {
     padding: 20px;
     position: relative;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 header .bars {
@@ -123,7 +123,26 @@ header nav ul li a i{
     padding: 20px;
     border-radius: 5px;
     z-index: 10;
+    width: 70%;
 }
+
+.confirm-delete a {
+    color: red;
+}
+
+.confirm-delete button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.action p i {
+    cursor: pointer;
+}
+
 /* Fin modale de confirmation de suppression */
 
 /* Formulaires */
@@ -169,15 +188,19 @@ label {
 
 /* Fin formulaires */
 
-main {
+/* Tableau */
+
+.wrapper {
     width: 95%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 main table {
     width: 100%;
     border-collapse: collapse;
-    background-color: rgb(61, 61, 61);
     color: white;
 }
 
@@ -188,37 +211,34 @@ main table {
 }
 
 .responsive td {
-border: 1px solid;
-border-bottom: none;
-display: block;
-text-align: right;
+    display: block;
+    text-align: right;
+    border: 1px solid #c1c1c1;
 }
 
 .responsive td::before {
-content: attr(data-label);
-float: left;
-text-transform: uppercase;
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.responsive td:first-child::before {
+    color: #fff; /* Couleur différente pour le premier td::before */
 }
 
 .responsive td:last-child {
-border-bottom: 1px solid;
-}
-
-main table thead tr th{
-    text-align: start;
-    padding: 5px;
-    font-size: 14px;
-    border-bottom: 2px solid rgb(197, 193, 193);
+    border-bottom: 1px solid;
 }
 
 main table tbody .status-complet {
     background-color: #f53f3f;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 main table tbody .status-incomplet {
     background-color: #0d8ce0;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 main table tbody .unsign a{
@@ -231,22 +251,133 @@ main table tbody .edit a{
 
 main table tbody tr td {
     padding: 5px;
-    font-size: 14px;
-}
-
-main table tbody tr {
-    border-bottom: 1px solid rgb(90, 89, 89);
+    font-size: 16px;
 }
 
 main table tbody tr td .session {
-    color: #35aaf8;
+    color: #1d93e1;
     text-decoration: underline;
 }
 
-main table tbody tr:nth-child(odd) {
-    background-color: rgb(75, 74, 74);
+main table tbody tr td p {
+    color: #000;
+}
+
+main table tbody tr {
+    background-color: rgb(230, 230, 230);
 }
 
 main table tbody tr td input {
     width: 40px;
+}
+
+/* Fin tableau */
+
+/* Homepage */
+main .home-banner {
+    background-image: linear-gradient(to right top, #0047b0, #2751bc, #3d5cc7, #4f67d3, #5f72df);background-image: linear-gradient(to right top, #356cbe, #4b76cb, #5f80d8, #728ae4, #8494f1);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.wrapper h3 {
+    background-color: #0363ca;
+    padding: 10px;
+    color: white;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.wrapper h3:hover {
+    background-color: #007bff;
+}
+
+.wrapper h3 i {
+    transition: all 0.2s ease-in-out;
+}
+
+.wrapper .first-drop .rotate,
+.wrapper .second-drop .rotate,
+.wrapper .third-drop .rotate {
+    transform: rotate(90deg);
+}
+
+/* Fin homepage */
+
+/* Début liste formations */
+
+.banner h2 {
+    text-align: center;
+    color: #FFF;
+}
+
+.banner {
+    background-image: linear-gradient(to right top, #0047b0, #2751bc, #3d5cc7, #4f67d3, #5f72df);background-image: linear-gradient(to right top, #356cbe, #4b76cb, #5f80d8, #728ae4, #8494f1);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.wrapper div ul li a {
+    background-color:#0363ca;
+    padding: 15px;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #033e8cb0;
+}
+
+.wrapper div ul a:hover {
+    background-color: #007bff;
+}
+
+.wrapper div ul li a {
+    color: #fff;
+}
+
+/* Fin liste formations */
+
+/* Début liste modules */
+
+.module-table {
+    background-color:#0363ca;
+}
+
+.module-table thead tr th {
+    text-align: start;
+    padding: 10px;
+}
+
+.module-table tbody tr td {
+    padding: 10px;
+    color: #000;
+}
+
+.module-table .action {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.module-table tbody tr {
+    border: 1px solid #37527639;
+}
+
+/* Fin liste modules */
+
+/* Début détail session */
+
+.session-detail {
+    background-color:#0363ca;
+    padding: 20px;
+    color: #fff;
+}
+
+.session-detail > div:nth-child(4) > p:nth-child(1) > a {
+    color: #fff;
+}
+
+.session-detail .action {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 30px;
 }

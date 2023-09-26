@@ -4,14 +4,17 @@
 
 {% block body %}
 
-    <h1>Liste des formations</h1>
-
-    <div class="list-ajout">
-        <ul>
-            {% for formation in formations %}
-                <li><a href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="banner">
+        <h2>Liste des formations</h2>
+    </div>
+    <div class="wrapper">
+        <div>
+            <ul>
+                {% for formation in formations %}
+                    <li><a href="{{ path('show_formation', {'id': formation.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ formation }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 {% endblock %}

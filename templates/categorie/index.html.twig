@@ -3,14 +3,18 @@
 {% block title %}Liste des catégorie{% endblock %}
 
 {% block body %}
-    <h1>Liste des catégorie</h1>
+    <div class="banner">
+        <h2>Liste des catégorie</h2>
+    </div>
 
-    <div class="list-ajout">
-        <ul>
-            {% for categorie in categories %}
-                <li><a href="{{ path('show_categorie', {'id': categorie.id}) }}">{{ categorie }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="wrapper">
+        <div>
+            <ul>
+                {% for categorie in categories %}
+                    <li><a href="{{ path('show_categorie', {'id': categorie.id}) }}"><i class="fa-solid fa-arrow-right"></i> {{ categorie }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 {% endblock %}
