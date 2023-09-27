@@ -44,7 +44,8 @@
 
     </script>
 
-    {% for session in sessions %}
+    <div class="table">
+        {% for session in sessions %}
         <table class="table responsive">
             <thead>
                 <tr>
@@ -94,5 +95,6 @@
             </tbody>
         </table>
     {% endfor %}
+    </div>
     </div>
 {% endblock %}

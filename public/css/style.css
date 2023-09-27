@@ -266,7 +266,7 @@ main table tbody tr td p {
 }
 
 main table tbody tr {
-    background-color: rgb(230, 230, 230);
+    background-color: rgba(240, 238, 238, 0.651);
 }
 
 main table tbody tr td input {
@@ -641,7 +641,75 @@ main .home-banner {
 }
 
 footer {
-    background-color: #d8d8d8;
+    background-color: #e9e8e8;
     padding: 20px;
     text-align: center;
+    margin-top: 30px;
+    color: #0056b3;
+}
+
+@media screen and (min-width: 768px) {
+
+    /* Menu responsive */
+
+    header nav {
+        left: -50%;
+        width: 50%;
+    }
+
+    /* Fin menu responsive */
+
+    /* Détail session */
+
+    .stagiaire {
+        display: flex;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .stagiaire > div {
+        width: 50%;
+    }
+
+    .programme {
+        display: flex;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .programme > div {
+        width: 50%;
+    }
+
+    .programme .h4 {
+        margin-bottom: 20px;
+    }
+
+    /* Fin détail session */
+
+    /* Liste sessions */
+
+    .wrapper .table {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .table .responsive {
+        display: table;
+    }
+
+    .table .responsive td {
+        border: 1px solid rgb(224, 224, 224);
+    }
+
+    /* Fin liste sessions */
+
+    /* Liste stagiaires */
+
+    .wrapper .lists {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3px;
+    }
 }

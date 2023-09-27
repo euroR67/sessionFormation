@@ -65,126 +65,127 @@
                 {% endif %}
             </div>
         </div>
-    
-        <div class="table-grid">
             <div class="stagiaire">
-                <h4><i class="fa-regular fa-square-check"></i> Stagiaires inscrits</h4>
-                <div class="stagiaire-inscrit">
-                    <ul>
-                        {# boucle for pour afficher les stagiaires inscrits #}
-                        {% for stagiaire in session.stagiaires %}
-                        {# Nom du stagiaire avec lien vers détail stagiaire #}
-                        <li>
-                            <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
-                                <i class="fa-solid fa-user"></i> {{ stagiaire }}
-                            </a>
-                            <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
-                                <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    
+                <div>
+                    <h4><i class="fa-regular fa-square-check"></i> Stagiaires inscrits</h4>
+                    <div class="stagiaire-inscrit">
+                        <ul>
+                            {# boucle for pour afficher les stagiaires inscrits #}
+                            {% for stagiaire in session.stagiaires %}
+                            {# Nom du stagiaire avec lien vers détail stagiaire #}
+                            <li>
+                                <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
+                                    <i class="fa-solid fa-user"></i> {{ stagiaire }}
+                                </a>
+                                <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                    <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        
+                    </div>
                 </div>
-    
-                <h4><i class="fa-regular fa-square-minus"></i> Stagiaires non inscrits</h4>
-                <div class="stagiaire-noninscrit">
-                    <ul>
-                        {# boucle for pour afficher les stagiaires non inscrits #}
-                        {% for stagiaire in stagiairesNonInscrit %}
-                        <li>
-                            <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
-                                <i class="fa-solid fa-user"></i> {{ stagiaire }}
-                            </a>
-                            {% if session.nbPlace - session.stagiaires|length > 0 %}
-                            <a class="add" href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
-                                <i class="fa-solid fa-user-plus" style="color: #15c621;"></i>
-                            </a>
-                        </li>
-                        {# on affiche l'icon inscrire stagiaire si il reste de la place sinon, on affiche un message #}
-                        {% else %}
-                            <p class="complet" style="color: rgb(248, 60, 60);">Complet</p>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
+                <div>
+                    <h4><i class="fa-regular fa-square-minus"></i> Stagiaires non inscrits</h4>
+                    <div class="stagiaire-noninscrit">
+                        <ul>
+                            {# boucle for pour afficher les stagiaires non inscrits #}
+                            {% for stagiaire in stagiairesNonInscrit %}
+                            <li>
+                                <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
+                                    <i class="fa-solid fa-user"></i> {{ stagiaire }}
+                                </a>
+                                {% if session.nbPlace - session.stagiaires|length > 0 %}
+                                <a class="add" href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                    <i class="fa-solid fa-user-plus" style="color: #15c621;"></i>
+                                </a>
+                            </li>
+                            {# on affiche l'icon inscrire stagiaire si il reste de la place sinon, on affiche un message #}
+                            {% else %}
+                                <p class="complet" style="color: rgb(248, 60, 60);">Complet</p>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
     
             <div class="programme">
-                <h4><i class="fa-brands fa-uncharted"></i> Programme</h4>
-                <div class="programmer">
-                    {# boucle for pour afficher les modules du programme #}
-                    {% for programme in session.programmes %}
-                    <div class="module-on">
-                        <div class="first">
-                            <div class="line-one">
-                                <p class="light">Module</p>
-                                <p>{{ programme.module }}</p>
+                <div>
+                    <h4 class="h4"><i class="fa-brands fa-uncharted"></i> Programme</h4>
+                    <div class="programmer">
+                        {# boucle for pour afficher les modules du programme #}
+                        {% for programme in session.programmes %}
+                        <div class="module-on">
+                            <div class="first">
+                                <div class="line-one">
+                                    <p class="light">Module</p>
+                                    <p>{{ programme.module }}</p>
+                                </div>
+                                <div class="line-two">
+                                    <p class="light">Catégorie</p>
+                                    <p>{{ programme.module.categories }}</p>
+                                </div>
                             </div>
-                            <div class="line-two">
-                                <p class="light">Catégorie</p>
-                                <p>{{ programme.module.categories }}</p>
-                            </div>
-                        </div>
-                        <div class="line"></div>
-                        <div class="second">
-                            <div class="line-one">
-                                <p class="light">Durée</p>
-                                <p>{{ programme.dureeJour }}</p>
-                            </div>
-                            <div class="line-two">
-                                <p class="light">Retirer</p>
-                                <p><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}"><i class="fa-regular fa-square-minus" style="color: #c91313;"></i></a></p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="total">
-                    <p>Total de jours : {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}</p>
-                </div>
-
-
-
-                
-                <h4 class="h4"><i class="fa-brands fa-uncharted"></i> Modules non programmés</h4>
-                <div class="non-programmer">
-                    {# Loop through the modules #}
-                    {% for module in modulesNonProgrammer %}
-                    <div class="module-on">
-                        <div class="first">
-                            <div class="line-one">
-                                <p class="light">Module</p>
-                                <p>{{ module.nomModule }}</p>
-                            </div>
-                            <div class="line-two">
-                                <p class="light">Catégorie</p>
-                                <p>{{ module.categories }}</p>
+                            <div class="line"></div>
+                            <div class="second">
+                                <div class="line-one">
+                                    <p class="light">Durée</p>
+                                    <p>{{ programme.dureeJour }}</p>
+                                </div>
+                                <div class="line-two">
+                                    <p class="light">Retirer</p>
+                                    <p><a href="{{ path('remove_module', {'id':session.id, 'programme': programme.id}) }}"><i class="fa-regular fa-square-minus" style="color: #c91313;"></i></a></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="line"></div>
-                        <div class="second">
-                            <div class="line-one">
-                                <p class="light">Durée</p>
-                                <p>
-                                    <form action="{{ path('add_module', {'id':session.id, 'module':module.id}) }}" method="post">
-                                    <input class="duree" type="number" name="duree" id="duree" value="1" min="1">
-                                </p>
-                            </div>
-                            <div class="line-two">
-                                <p class="light">Ajout</p>
-                                <p>
-                                    <button type="submit" name="submit" id="submit" style="border: none; background: none; cursor: pointer;">
-                                        <i class="fa-regular fa-square-plus fa-xl" style="color: #15c621;"></i>
-                                    </button>
-                                </p>
-                            </div>
+                        {% endfor %}
+                        <div class="total">
+                            <p>Total de jours : {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}</p>
                         </div>
                     </div>
-                    {% endfor %}
+                </div>
+
+                <div>
+                    <h4 class="h4"><i class="fa-brands fa-uncharted"></i> Modules non programmés</h4>
+                    <div class="non-programmer">
+                        {# Loop through the modules #}
+                        {% for module in modulesNonProgrammer %}
+                        <div class="module-on">
+                            <div class="first">
+                                <div class="line-one">
+                                    <p class="light">Module</p>
+                                    <p>{{ module.nomModule }}</p>
+                                </div>
+                                <div class="line-two">
+                                    <p class="light">Catégorie</p>
+                                    <p>{{ module.categories }}</p>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="second">
+                                <div class="line-one">
+                                    <p class="light">Durée</p>
+                                    <p>
+                                        <form action="{{ path('add_module', {'id':session.id, 'module':module.id}) }}" method="post">
+                                        <input class="duree" type="number" name="duree" id="duree" value="1" min="1">
+                                    </p>
+                                </div>
+                                <div class="line-two">
+                                    <p class="light">Ajout</p>
+                                    <p>
+                                        <button type="submit" name="submit" id="submit" style="border: none; background: none; cursor: pointer;">
+                                            <i class="fa-regular fa-square-plus fa-xl" style="color: #15c621;"></i>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 
 {% endblock %}

@@ -61,7 +61,8 @@
 
         <h4>Stagiaire inscrit au sessions suivante :</h4>
 
-        {% for session in stagiaire.sessions %}
+        <div class="table">
+            {% for session in stagiaire.sessions %}
         <table class="table responsive">
             <thead>
                 <tr>
@@ -111,6 +112,7 @@
             </tbody>
         </table>
         {% endfor %}
+        </div>
     </div>
                     
 

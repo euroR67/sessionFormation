@@ -5,10 +5,15 @@
 {% block body %}
 
     <div class="banner">
-        <h2>Ajouter un nouveau stagiaire</h2>
+        {# On affiche "Ajout Stagiaire" si l'id du stagiaire est null, sinon on affiche "Modification Stagiaire" #}
+        <h2>
+            {% if edit %}
+                Modification Stagiaire
+            {% else %}
+                Ajouter un Stagiaire
+            {% endif %}
+        </h2>
     </div>
-
-    {# {{ form(form) }} #}
 
     <div class="wrapper">
         <div class="container">

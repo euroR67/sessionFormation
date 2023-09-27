@@ -38,13 +38,14 @@ class CategorieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // Message flash de succès pour l'ajout ou la modification d'une catégorie
+            $this->addFlash('success', 'Catégorie ' . ($categorie->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
+            
             $categorie = $form->getData();
 
             $entityManager->persist($categorie);
             $entityManager->flush();
 
-            // Message flash de succès pour l'ajout ou la modification d'une catégorie
-            $this->addFlash('success', 'Catégorie ' . ($categorie->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
 
             return $this->redirectToRoute('app_categorie');
 
@@ -52,6 +53,7 @@ class CategorieController extends AbstractController
 
         return $this->render('categorie/new.html.twig', [
             'form' => $form,
+            'edit'=> $categorie->getId()
         ]);
     }
 

@@ -37,13 +37,14 @@ class StagiaireController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // Message flash de succès pour l'ajout ou la modification d'un stagiaire
+            $this->addFlash('success', 'Stagiaire ' . ($stagiaire->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
+
             $stagiaire = $form->getData();
 
             $entityManager->persist($stagiaire);
             $entityManager->flush();
 
-            // Message flash de succès pour l'ajout ou la modification d'un stagiaire
-            $this->addFlash('success', 'Stagiaire ' . ($stagiaire->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
 
             return $this->redirectToRoute('app_stagiaire');
 
@@ -51,6 +52,7 @@ class StagiaireController extends AbstractController
 
         return $this->render('stagiaire/new.html.twig', [
             'form' => $form,
+            'edit'=> $stagiaire->getId()
         ]);
     }
 

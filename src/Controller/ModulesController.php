@@ -37,13 +37,14 @@ class ModulesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // Message flash de succès pour l'ajout ou la modification d'un module
+            $this->addFlash('success', 'Module ' . ($modules->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
+            
             $modules = $form->getData();
 
             $entityManager->persist($modules);
             $entityManager->flush();
 
-            // Message flash de succès pour l'ajout ou la modification d'un module
-            $this->addFlash('success', 'Module ' . ($modules->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
 
             return $this->redirectToRoute('app_modules');
 
@@ -51,6 +52,7 @@ class ModulesController extends AbstractController
 
         return $this->render('modules/new.html.twig', [
             'form' => $form,
+            'edit'=> $modules->getId()
         ]);
     }
 

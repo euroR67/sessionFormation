@@ -5,7 +5,13 @@
 {% block body %}
 
     <div class="banner">
-        <h2>Ajouter une catégorie</h2>
+        <h2>
+            {% if edit %}
+                Modification Catégorie
+            {% else %}
+                Ajouter une catégorie
+            {% endif %}
+        </h2>
     </div>
 
     <div class="wrapper">

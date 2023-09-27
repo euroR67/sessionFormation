@@ -38,13 +38,14 @@ class FormationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // Message flash de succès pour l'ajout ou la modification d'une formation
+            $this->addFlash('success', 'Formation ' . ($formation->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
+
             $formation = $form->getData();
 
             $entityManager->persist($formation);
             $entityManager->flush();
 
-            // Message flash de succès pour l'ajout ou la modification d'une formation
-            $this->addFlash('success', 'Formation ' . ($formation->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
 
             return $this->redirectToRoute('app_formation');
 
@@ -52,6 +53,7 @@ class FormationController extends AbstractController
 
         return $this->render('formation/new.html.twig', [
             'form' => $form,
+            'edit'=> $formation->getId()
         ]);
     }
 

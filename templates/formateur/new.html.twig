@@ -5,7 +5,13 @@
 {% block body %}
 
     <div class="banner">
-        <h2>Ajouter un formateur</h2>
+        <h2>
+            {% if edit %}
+                Modification Formateur
+            {% else %}
+                Ajouter un formateur
+            {% endif %}
+        </h2>
     </div>
 
     <div class="wrapper">

@@ -10,6 +10,8 @@
 
     <h3 class="first-drop"><i class="fa-solid fa-caret-right"></i> Sessions en cours</h3>
 
+    <div class="table">
+        {% for session in currentSessions %}
     <table class="table responsive first">
         <thead>
             <tr>
@@ -23,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for session in currentSessions %}
+            
                 <tr>
                     {# Si la session est complète, on affiche "Session complète" #}
                     {% if session.nbPlace == session.stagiaires|length %}
@@ -57,29 +59,29 @@
                         <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
                     </td>
                 </tr>
-            {% endfor %}
+            
         </tbody>
     </table>
+    {% endfor %}
+    </div>
 
     <h3 class="second-drop"><i class="fa-solid fa-caret-right"></i> Sessions à venir</h3>
-
-    <table class="table responsive second">
-        <thead>
-            <tr>
-                <th>Status</th>
-                <th>Formation</th>
-                <th>Session</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Inscrits</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-
-
-
-            {% for session in futureSessions %}
+    
+    <div class="table">
+    {% for session in futureSessions %}
+        <table class="table responsive second">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Formation</th>
+                    <th>Session</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Inscrits</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
                 <tr>
                     {# Si la session est complète, on affiche "Session complète" #}
                     {% if session.nbPlace == session.stagiaires|length %}
@@ -113,65 +115,68 @@
                         <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
                     </td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    {% endfor %}
+    </div>
 
     <h3 class="third-drop"><i class="fa-solid fa-caret-right"></i> Sessions à passées</h3>
 
-    <table class="table responsive third">
-        <thead>
-            <tr>
-                <th>Status</th>
-                <th>Formation</th>
-                <th>Session</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Inscrits</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-
-
-
-            {% for session in pastSessions %}
+    <div class="table">
+        <table class="table responsive third">
+            <thead>
                 <tr>
-                    {# Si la session est complète, on affiche "Session complète" #}
-                    {% if session.nbPlace == session.stagiaires|length %}
-                        <td data-label="Status" class="status-complet">Session complète</td>
-                    {# Sinon on affiche "Session incomplet" #}
-                    {% else %}
-                        <td data-label="Status"class="status-incomplet">Session incomplet</td>
-                    {% endif %}
-                    {# Affiche le nom de la formation dont le stagiaire est inscrit #}
-                    <td data-label="Formation">
-                        <p>{{ session.formation }}</p>
-                    </td>
-                    {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
-                    <td data-label="Session">
-                        <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
-                    </td>
-                    {# Affiche la date de début de la session #}
-                    <td data-label="Date de début">
-                        <p>{{ session.dateSession|date('d/m/Y') }}</p>
-                    </td>
-                    {# Affiche la date de fin de la session #}
-                    <td data-label="Date de fin">
-                        <p>{{ session.dateFin|date('d/m/Y') }}</p>
-                    </td>
-                    {# On affiche combien de stagiaire sont inscrit dans cet session #}
-                    <td data-label="Inscrits">
-                        <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
-                    </td>
-                    {# Affiche le lien de désinscription #}
-                    <td data-label="Actions" class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
-                    </td>
+                    <th>Status</th>
+                    <th>Formation</th>
+                    <th>Session</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Inscrits</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+    
+    
+    
+                {% for session in pastSessions %}
+                    <tr>
+                        {# Si la session est complète, on affiche "Session complète" #}
+                        {% if session.nbPlace == session.stagiaires|length %}
+                            <td data-label="Status" class="status-complet">Session complète</td>
+                        {# Sinon on affiche "Session incomplet" #}
+                        {% else %}
+                            <td data-label="Status"class="status-incomplet">Session incomplet</td>
+                        {% endif %}
+                        {# Affiche le nom de la formation dont le stagiaire est inscrit #}
+                        <td data-label="Formation">
+                            <p>{{ session.formation }}</p>
+                        </td>
+                        {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
+                        <td data-label="Session">
+                            <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
+                        </td>
+                        {# Affiche la date de début de la session #}
+                        <td data-label="Date de début">
+                            <p>{{ session.dateSession|date('d/m/Y') }}</p>
+                        </td>
+                        {# Affiche la date de fin de la session #}
+                        <td data-label="Date de fin">
+                            <p>{{ session.dateFin|date('d/m/Y') }}</p>
+                        </td>
+                        {# On affiche combien de stagiaire sont inscrit dans cet session #}
+                        <td data-label="Inscrits">
+                            <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
+                        </td>
+                        {# Affiche le lien de désinscription #}
+                        <td data-label="Actions" class="edit">
+                            <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <script>
 
@@ -180,18 +185,24 @@
             const firstDrop = document.querySelector('.first-drop');
             const secondDrop = document.querySelector('.second-drop');
             const thirdDrop = document.querySelector('.third-drop');
-            const firstTable = document.querySelector('.first');
-            const secondTable = document.querySelector('.second');
-            const thirdTable = document.querySelector('.third');
+            const firstTable = document.querySelectorAll('.first');
+            const secondTable = document.querySelectorAll('.second');
+            const thirdTable = document.querySelectorAll('.third');
             // On sélectionne les flèches
             const firstArrow = document.querySelector('.first-drop i');
             const secondArrow = document.querySelector('.second-drop i');
             const thirdArrow = document.querySelector('.third-drop i');
         
-            // On définie initialement le style display des tableaux à 'none'
-            firstTable.style.display = 'none';
-            secondTable.style.display = 'none';
-            thirdTable.style.display = 'none';
+            // On définie initialement le style display des tableaux à 'none' avec une boucle
+            for (let i = 0; i < firstTable.length; i++) {
+                firstTable[i].style.display = 'none';
+            }
+            for (let i = 0; i < secondTable.length; i++) {
+                secondTable[i].style.display = 'none';
+            }
+            for (let i = 0; i < thirdTable.length; i++) {
+                thirdTable[i].style.display = 'none';
+            }
         
             // Fonction pour effectuer la rotation de 90 degrés sur la flèche
             function rotateArrow(arrow) {
@@ -201,50 +212,46 @@
                     arrow.classList.add('rotate');
                 }
             }
-        
-            // On écoute le click sur le premier H3
+
+            // Fonction pour afficher ou masquer les tableaux
+            function displayTable(table) {
+                if (table.style.display === 'none') {
+                    table.style.display = 'table';
+                } else {
+                    table.style.display = 'none';
+                }
+            }
+
+            // On ajoute un écouteur d'événement sur le premier titre
             firstDrop.addEventListener('click', () => {
-                // On vérifie si le display du tableau est 'none'
-                if (firstTable.style.display === 'none') {
-                    // Si oui, on le passe en 'block'
-                    firstTable.style.display = 'table';
-                } else {
-                    // Sinon on le passe en 'none'
-                    firstTable.style.display = 'none';
-                }
-                // On fait tourner la flèche
+                // On appelle la fonction pour effectuer la rotation de la flèche
                 rotateArrow(firstArrow);
+                // On appelle la fonction pour afficher ou masquer les tableaux
+                for (let i = 0; i < firstTable.length; i++) {
+                    displayTable(firstTable[i]);
+                }
             });
-        
-            // On écoute le click sur le deuxième H3
+
+            // On ajoute un écouteur d'événement sur le deuxième titre
             secondDrop.addEventListener('click', () => {
-                // On vérifie si le display du tableau est 'none'
-                if (secondTable.style.display === 'none') {
-                    // Si oui, on le passe en 'block'
-                    secondTable.style.display = 'table';
-                } else {
-                    // Sinon on le passe en 'none'
-                    secondTable.style.display = 'none';
-                }
-                // On fait tourner la flèche
+                // On appelle la fonction pour effectuer la rotation de la flèche
                 rotateArrow(secondArrow);
-            });
-        
-            // On écoute le click sur le troisième H3
-            thirdDrop.addEventListener('click', () => {
-                // On vérifie si le display du tableau est 'none'
-                if (thirdTable.style.display === 'none') {
-                    // Si oui, on le passe en 'block'
-                    thirdTable.style.display = 'table';
-                } else {
-                    // Sinon on le passe en 'none'
-                    thirdTable.style.display = 'none';
+                // On appelle la fonction pour afficher ou masquer les tableaux
+                for (let i = 0; i < secondTable.length; i++) {
+                    displayTable(secondTable[i]);
                 }
-                // On fait tourner la flèche
+            });
+
+            // On ajoute un écouteur d'événement sur le troisième titre
+            thirdDrop.addEventListener('click', () => {
+                // On appelle la fonction pour effectuer la rotation de la flèche
                 rotateArrow(thirdArrow);
+                // On appelle la fonction pour afficher ou masquer les tableaux
+                for (let i = 0; i < thirdTable.length; i++) {
+                    displayTable(thirdTable[i]);
+                }
             });
         });
-        
 
     </script>
 

@@ -48,6 +48,8 @@ class SessionController extends AbstractController
         // Vérifiez si le formulaire a été soumis et si les données sont valides
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // Message flash de succès pour l'ajout ou la modification d'une session
+            $this->addFlash('success', 'Session ' . ($session->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
             // Récupérez les données du formulaire
             $sessionData = $form->getData();
 
@@ -75,14 +77,13 @@ class SessionController extends AbstractController
             $entityManager->persist($session);
             $entityManager->flush();
 
-             // Message flash de succès pour l'ajout ou la modification d'une session
-            $this->addFlash('success', 'Session ' . ($session->getId() ? 'modifiée' : 'ajoutée') . ' avec succès !');
 
             return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
         }
 
         return $this->render('session/new.html.twig', [
             'form' => $form,
+            'edit'=> $session->getId()
         ]);
     }
 

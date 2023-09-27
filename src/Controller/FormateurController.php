@@ -38,13 +38,14 @@ class FormateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            $this->addFlash('success', 'Formateur ' . ($formateur->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
+            
             $formateur = $form->getData();
 
             $entityManager->persist($formateur);
             $entityManager->flush();
 
             // Message flash de succès pour l'ajout ou la modification d'un formateur
-            $this->addFlash('success', 'Formateur ' . ($formateur->getId() ? 'modifié' : 'ajouté') . ' avec succès !');
 
             return $this->redirectToRoute('app_formateur');
 
@@ -52,6 +53,7 @@ class FormateurController extends AbstractController
 
         return $this->render('formateur/new.html.twig', [
             'form' => $form,
+            'edit'=> $formateur->getId()
         ]);
     }
 

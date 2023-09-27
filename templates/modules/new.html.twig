@@ -5,7 +5,13 @@
 {% block body %}
 
     <div class="banner">
-        <h2>Ajouter un module</h2>
+        <h2>
+            {% if edit %}
+                Modification module
+            {% else %}
+                Ajouter un module
+            {% endif %}
+        </h2>
     </div>
 
     <div class="wrapper">

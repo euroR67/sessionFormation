@@ -46,7 +46,8 @@
 
         <h4>Sessions de cet formation</h4>
 
-        {% for session in sessions %}
+        <div class="table">
+            {% for session in sessions %}
         <table class="table responsive">
             <thead>
                 <tr>
@@ -90,12 +91,13 @@
                     </td>
                     {# Affiche le lien de désinscription #}
                     <td data-label="Actions" class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
+                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i> Edit</a>
                     </td>
                 </tr>
             </tbody>
         </table>
         {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
