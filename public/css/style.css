@@ -20,6 +20,21 @@ header .bars {
     cursor: pointer;
 }
 
+header .user {
+    position: absolute;
+    top: 38%;
+    right: 20px;
+}
+
+header .user a {
+    color: #0056b3;
+    font-size: 18px;
+}
+
+header .user a:hover {
+    color: #007bff;
+}
+
 header .logo {
     font-style: italic;
     text-decoration: underline;
@@ -30,6 +45,10 @@ header .logo {
     width: fit-content;
     display: block;
     font-weight: 600;
+}
+
+header nav .logo-menu:hover {
+    color: #007bff;
 }
 
 header nav {
@@ -72,6 +91,7 @@ header nav .logo-menu {
     color: #0056b3;
     display: inline-block;
     margin: 20px;
+    transition: all 0.2s ease-in-out;
 }
 
 header nav ul li {
@@ -266,7 +286,7 @@ main table tbody tr td p {
 }
 
 main table tbody tr {
-    background-color: rgba(240, 238, 238, 0.651);
+    background-color: rgb(240, 238, 238);
 }
 
 main table tbody tr td input {
@@ -355,12 +375,12 @@ main .home-banner {
 
 .module-table .action {
     display: flex;
-    justify-content: space-around;
+    gap: 5px;
     text-align: center;
 }
 
 .module-table tbody tr {
-    border: 1px solid #37527639;
+    border-block: 1px solid #37527639;
 }
 
 /* Fin liste modules */
@@ -404,8 +424,11 @@ main .home-banner {
     background-color: #ef2a2a;
 }
 
-.session-detail .edit:hover,
 .session-detail .delete:hover {
+    background-color: #fb5151;
+}
+
+.session-detail .edit:hover {
     background-color: rgb(210, 210, 210);
 }
 
@@ -432,6 +455,7 @@ main .home-banner {
     border-radius: 3px;
     margin-top: 20px;
     border-left: 10px solid #ff0000;
+    width: fit-content;
 }
 
 .alert-danger {
@@ -514,7 +538,7 @@ main .home-banner {
 
 .stagiaire-noninscrit .complet {
     background-color: #fff;
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px;
 }
 
@@ -569,6 +593,8 @@ main .home-banner {
 
 .total {
     border-top: 1px solid #b1b1b1;
+    margin-block: 20px;
+    width: fit-content;
 }
 
 .total p {
@@ -640,12 +666,38 @@ main .home-banner {
     margin-bottom: 5px;
 }
 
+.combined {
+    display: none;
+}
+
+.formateur {
+    font-size: 20px;
+}
+
+.formateur a {
+    color: #fff;
+    font-weight: 600;
+}
+
+.h4 {
+    margin-top: 20px;
+}
+
 footer {
     background-color: #e9e8e8;
     padding: 20px;
     text-align: center;
     margin-top: 30px;
     color: #0056b3;
+}
+
+main {
+    min-height: 100%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -685,6 +737,19 @@ footer {
         margin-bottom: 20px;
     }
 
+    .h4 {
+        margin-top: 0px;
+    }
+   
+    .combined {
+        display: none;
+    }
+
+    .module-table .action {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
     /* Fin détail session */
 
     /* Liste sessions */
@@ -711,5 +776,112 @@ footer {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 3px;
+    }
+
+    .module-on .first {
+        min-height: 60px;
+    }
+
+    .module-table {
+        width: 60%;
+        margin: 0 auto;
+    }
+    
+}
+
+@media screen and (min-width: 1500px ) {
+    header {
+        padding: 5px;
+    }
+
+    header nav {
+        display: flex;
+        justify-content: center;
+        position:unset;
+        height: auto;
+        width: 100%;
+    }
+
+    header .nav {
+        display: none;
+    }
+
+    header nav ul {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    header nav ul li a{
+        display: flex;
+        font-size: 17px;
+    }
+
+    header nav ul li {
+        color: #000;
+        border: none;
+    }
+
+    .wrapper {
+        width: 75%;
+    }
+}
+
+@media screen and (min-width: 1200px ) {
+    .programmer, .non-programmer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .total {
+        height: fit-content;
+    }
+
+    .subinfo p {
+        font-size: 24px;
+        margin: 15px;
+    }
+
+    .subinfo {
+        width: fit-content;
+    }
+
+    .combined {
+        display: initial;
+        display: flex;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .session-detail {
+        display: flex;
+    }
+
+    .session-detail > div {
+        width: 100%;
+    }
+
+    .wrapper .table-grids {
+        display: flex;
+        gap: 5px;
+    }
+
+    .wrapper .table-grids > div {
+        width: 100%;
+    }
+
+    .wrapper .table {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sessions-wrapper .table {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .wrapper .lists {
+        grid-template-columns: repeat(4, 1fr);
     }
 }

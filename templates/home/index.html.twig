@@ -8,145 +8,92 @@
 </div>
 <div class="wrapper">
 
-    <h3 class="first-drop"><i class="fa-solid fa-caret-right"></i> Sessions en cours</h3>
+    <div class="table-grids">
 
-    <div class="table">
-        {% for session in currentSessions %}
-    <table class="table responsive first">
-        <thead>
-            <tr>
-                <th>Status</th>
-                <th>Formation</th>
-                <th>Session</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Inscrits</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-                <tr>
-                    {# Si la session est complète, on affiche "Session complète" #}
-                    {% if session.nbPlace == session.stagiaires|length %}
-                        <td data-label="Status" class="status-complet">Session complète</td>
-                    {# Sinon on affiche "Session incomplet" #}
-                    {% else %}
-                        <td data-label="Status" class="status-incomplet">Session incomplet</td>
-                    {% endif %}
-                    {# Affiche le nom de la formation dont le stagiaire est inscrit #}
-                    <td data-label="Formation">
-                        <p>{{ session.formation }}</p>
-                    </td>
-                    {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
-                    <td data-label="Session">
-                        <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
-                    </td>
-                    {# Affiche la date de début de la session #}
-                    <td data-label="Date de début">
-                        <p>{{ session.dateSession|date('d/m/Y') }}</p>
-                    </td>
-                    {# Affiche la date de fin de la session #}
-                    <td data-label="Date de fin">
-                        <p>{{ session.dateFin|date('d/m/Y') }}</p>
-                    </td>
-                    {# On affiche combien de stagiaire sont inscrit dans cet session #}
-                    <td data-label="Inscrits">
-                        <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
-                    </td>
-                    {# Affiche le lien de désinscription #}
-                    <td data-label="Actions" class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
-                    </td>
-                </tr>
-            
-        </tbody>
-    </table>
-    {% endfor %}
-    </div>
+        <div>
+            <h3 class="first-drop"><i class="fa-solid fa-caret-right"></i> Sessions en cours</h3>
 
-    <h3 class="second-drop"><i class="fa-solid fa-caret-right"></i> Sessions à venir</h3>
-    
-    <div class="table">
-    {% for session in futureSessions %}
-        <table class="table responsive second">
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Formation</th>
-                    <th>Session</th>
-                    <th>Date de début</th>
-                    <th>Date de fin</th>
-                    <th>Inscrits</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {# Si la session est complète, on affiche "Session complète" #}
-                    {% if session.nbPlace == session.stagiaires|length %}
-                        <td data-label="Status" class="status-complet">Session complète</td>
-                    {# Sinon on affiche "Session incomplet" #}
-                    {% else %}
-                        <td date-label="Status" class="status-incomplet">Session incomplet</td>
-                    {% endif %}
-                    {# Affiche le nom de la formation dont le stagiaire est inscrit #}
-                    <td data-label="Formation">
-                        <p>{{ session.formation }}</p>
-                    </td>
-                    {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
-                    <td data-label="Session">
-                        <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
-                    </td>
-                    {# Affiche la date de début de la session #}
-                    <td data-label="Date de début">
-                        <p>{{ session.dateSession|date('d/m/Y') }}</p>
-                    </td>
-                    {# Affiche la date de fin de la session #}
-                    <td data-label="Date de fin">
-                        <p>{{ session.dateFin|date('d/m/Y') }}</p>
-                    </td>
-                    {# On affiche combien de stagiaire sont inscrit dans cet session #}
-                    <td data-label="Inscrit">
-                        <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
-                    </td>
-                    {# Affiche le lien de désinscription #}
-                    <td data-label="Actions" class="edit">
-                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    {% endfor %}
-    </div>
+            <div class="table">
+                {% for session in currentSessions %}
+            <table class="table responsive first">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Formation</th>
+                        <th>Session</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Inscrits</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr>
+                            {# Si la session est complète, on affiche "Session complète" #}
+                            {% if session.nbPlace == session.stagiaires|length %}
+                                <td data-label="Status" class="status-complet">Session complète</td>
+                            {# Sinon on affiche "Session incomplet" #}
+                            {% else %}
+                                <td data-label="Status" class="status-incomplet">Session incomplet</td>
+                            {% endif %}
+                            {# Affiche le nom de la formation dont le stagiaire est inscrit #}
+                            <td data-label="Formation">
+                                <p>{{ session.formation }}</p>
+                            </td>
+                            {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
+                            <td data-label="Session">
+                                <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
+                            </td>
+                            {# Affiche la date de début de la session #}
+                            <td data-label="Date de début">
+                                <p>{{ session.dateSession|date('d/m/Y') }}</p>
+                            </td>
+                            {# Affiche la date de fin de la session #}
+                            <td data-label="Date de fin">
+                                <p>{{ session.dateFin|date('d/m/Y') }}</p>
+                            </td>
+                            {# On affiche combien de stagiaire sont inscrit dans cet session #}
+                            <td data-label="Inscrits">
+                                <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
+                            </td>
+                            {# Affiche le lien de désinscription #}
+                            <td data-label="Actions" class="edit">
+                                <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
+                            </td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
 
-    <h3 class="third-drop"><i class="fa-solid fa-caret-right"></i> Sessions à passées</h3>
-
-    <div class="table">
-        <table class="table responsive third">
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Formation</th>
-                    <th>Session</th>
-                    <th>Date de début</th>
-                    <th>Date de fin</th>
-                    <th>Inscrits</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-    
-    
-    
-                {% for session in pastSessions %}
+        </div>
+        <div>
+            <h3 class="second-drop"><i class="fa-solid fa-caret-right"></i> Sessions à venir</h3>
+        
+        <div class="table">
+        {% for session in futureSessions %}
+            <table class="table responsive second">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Formation</th>
+                        <th>Session</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Inscrits</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr>
                         {# Si la session est complète, on affiche "Session complète" #}
                         {% if session.nbPlace == session.stagiaires|length %}
                             <td data-label="Status" class="status-complet">Session complète</td>
                         {# Sinon on affiche "Session incomplet" #}
                         {% else %}
-                            <td data-label="Status"class="status-incomplet">Session incomplet</td>
+                            <td date-label="Status" class="status-incomplet">Session incomplet</td>
                         {% endif %}
                         {# Affiche le nom de la formation dont le stagiaire est inscrit #}
                         <td data-label="Formation">
@@ -165,7 +112,7 @@
                             <p>{{ session.dateFin|date('d/m/Y') }}</p>
                         </td>
                         {# On affiche combien de stagiaire sont inscrit dans cet session #}
-                        <td data-label="Inscrits">
+                        <td data-label="Inscrit">
                             <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
                         </td>
                         {# Affiche le lien de désinscription #}
@@ -173,9 +120,71 @@
                             <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
                         </td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        {% endfor %}
+        </div>
+        </div>
+
+        <div>
+            <h3 class="third-drop"><i class="fa-solid fa-caret-right"></i> Sessions à passées</h3>
+
+            <div class="table">
+                <table class="table responsive third">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Formation</th>
+                            <th>Session</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Inscrits</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            
+            
+            
+                        {% for session in pastSessions %}
+                            <tr>
+                                {# Si la session est complète, on affiche "Session complète" #}
+                                {% if session.nbPlace == session.stagiaires|length %}
+                                    <td data-label="Status" class="status-complet">Session complète</td>
+                                {# Sinon on affiche "Session incomplet" #}
+                                {% else %}
+                                    <td data-label="Status"class="status-incomplet">Session incomplet</td>
+                                {% endif %}
+                                {# Affiche le nom de la formation dont le stagiaire est inscrit #}
+                                <td data-label="Formation">
+                                    <p>{{ session.formation }}</p>
+                                </td>
+                                {# Affiche le lien et le nom de la session dont le stagiaire est inscrit #}
+                                <td data-label="Session">
+                                    <a class="session" href="{{ path('show_session', {'id': session.id}) }}">{{ session }}</a>
+                                </td>
+                                {# Affiche la date de début de la session #}
+                                <td data-label="Date de début">
+                                    <p>{{ session.dateSession|date('d/m/Y') }}</p>
+                                </td>
+                                {# Affiche la date de fin de la session #}
+                                <td data-label="Date de fin">
+                                    <p>{{ session.dateFin|date('d/m/Y') }}</p>
+                                </td>
+                                {# On affiche combien de stagiaire sont inscrit dans cet session #}
+                                <td data-label="Inscrits">
+                                    <p>{{ session.stagiaires|length }} / {{ session.nbPlace }}</p>
+                                </td>
+                                {# Affiche le lien de désinscription #}
+                                <td data-label="Actions" class="edit">
+                                    <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="fa-regular fa-pen-to-square" style="color: #febe34;"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>

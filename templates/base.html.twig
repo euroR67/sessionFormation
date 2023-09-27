@@ -21,6 +21,17 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: #0056b3"></i>
                 </div>
                 <a href="{{ path('app_home') }}" class="logo">EF App</a>
+                <!-- On affiche le nom de l'utilisateur connecté -->
+                {% if app.user %}
+                    <div class="user">
+                        <a href="{{ path('app_administration') }}"><i class="fa-solid fa-user-tie"></i> {{ app.user.pseudo }}</a>
+                    </div>
+                    {% else %}
+                    <!-- sinon lien vers login -->
+                    <div class="user">
+                        <a href="{{ path('app_login') }}"><i class="fa-solid fa-user fa-2x"></i></a>
+                    </div>
+                {% endif %}
             </div>
             <nav>
                 <a href="{{ path('app_home') }}" class="logo-menu">EF App</a>
@@ -73,7 +84,7 @@
 
 
             {% block body %}{% endblock %}
-
+            <div class="push"></div>
         </main>
         <script>
 

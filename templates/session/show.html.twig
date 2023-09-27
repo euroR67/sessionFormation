@@ -10,62 +10,111 @@
 
     <div class="wrapper">
         <div class="session-detail">
-            <h2>{{ session }}</h2>
-            <div class="modal">
-                <div class="confirm-delete">
-                    <p>Êtes-vous sûr de vouloir supprimer {{ session }} ? cet action est irréversible.</p><br>
-                    <p>Tous les stagiaires inscrits à cette session seront également supprimer.</p><br>
-                    {# lien vers la suppression de la session #}
-                    <a class="supp-form" href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
-                    <button class="cancel">Annuler</button>
+            <div>
+                <h2>{{ session }}</h2>
+                <div class="modal">
+                    <div class="confirm-delete">
+                        <p>Êtes-vous sûr de vouloir supprimer {{ session }} ? cet action est irréversible.</p><br>
+                        <p>Tous les stagiaires inscrits à cette session seront également supprimer.</p><br>
+                        {# lien vers la suppression de la session #}
+                        <a class="supp-form" href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
+                        <button class="cancel">Annuler</button>
+                    </div>
+                </div>
+                <script>
+
+                    // On vérifie que tout le contenu du dom est chargé avant d'executer le script
+                    document.addEventListener('DOMContentLoaded', function() {
+
+                    // On récupère les éléments du DOM
+                        const modal = document.querySelector('.modal');
+                        // On récupère la balise i qui contient l'icone de suppression
+                        const btnSupp = document.querySelector('.delete');
+                        const btnCancel = document.querySelector('.cancel');
+
+                        // On ajoute un écouteur d'évènement sur le bouton de suppression
+                        btnSupp.addEventListener('click', function() {
+                            modal.style.display = 'block';
+                        });
+
+                        // On ajoute un écouteur d'évènement sur le bouton d'annulation
+                        btnCancel.addEventListener('click', function() {
+                            modal.style.display = 'none';
+                        });
+                    });
+
+                </script>
+                <div>
+                    <p class="formateur">Formateur référent : <a href="{{ path('show_formateur', {'id': session.formateur.id}) }}">{{ session.formateur }}</a></p><br>
+                    <div class="subinfo">
+                        <p><i class="fa-solid fa-calendar-days"></i> Date de début : {{ session.dateSession|date('d/m/Y') }}</p>
+                        <p><i class="fa-solid fa-calendar-days"></i> Date de fin : {{ session.dateFin|date('d/m/Y') }}</p>
+                        <p><i class="fa-solid fa-chair"></i> Nombre de place : {{ session.nbPlace }}</p>
+                        <p><i class="fa-solid fa-chair"></i> Nombre de places disponibles : {{ session.nbPlace - session.stagiaires|length }}</p>
+                        <p><i class="fa-solid fa-clipboard-list"></i> Nombre de modules : {{ session.programmes|length }}</p>
+                    </div>
+                    <div class="action">
+                        <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">
+                            <i class="fa-regular fa-pen-to-square fa-lg"></i>
+                        </a>
+                        <p class="delete"><i class="fa-solid fa-xmark fa-lg"></i></p>
+                    </div>
+                    <br>
+                    {# Si il n'y a plus de place disponible on affiche un message #}
+                    {% if session.nbPlace - session.stagiaires|length == 0 %}
+                        <p class="no-slot">Il n'y a plus de place disponible pour cette session.</p>
+                    {% endif %}
                 </div>
             </div>
-            <script>
-
-                // On vérifie que tout le contenu du dom est chargé avant d'executer le script
-                document.addEventListener('DOMContentLoaded', function() {
-
-                   // On récupère les éléments du DOM
-                    const modal = document.querySelector('.modal');
-                    // On récupère la balise i qui contient l'icone de suppression
-                    const btnSupp = document.querySelector('.delete');
-                    const btnCancel = document.querySelector('.cancel');
-
-                    // On ajoute un écouteur d'évènement sur le bouton de suppression
-                    btnSupp.addEventListener('click', function() {
-                        modal.style.display = 'block';
-                    });
-
-                    // On ajoute un écouteur d'évènement sur le bouton d'annulation
-                    btnCancel.addEventListener('click', function() {
-                        modal.style.display = 'none';
-                    });
-                });
-
-            </script>
             <div>
-                <p>Formateur référent : <a href="{{ path('show_formateur', {'id': session.formateur.id}) }}">{{ session.formateur }}</a></p><br>
-                <div class="subinfo">
-                    <p><i class="fa-solid fa-calendar-days"></i> Date de début : {{ session.dateSession|date('d/m/Y') }}</p>
-                    <p><i class="fa-solid fa-calendar-days"></i> Date de fin : {{ session.dateFin|date('d/m/Y') }}</p>
-                    <p><i class="fa-solid fa-chair"></i> Nombre de place : {{ session.nbPlace }}</p>
-                    <p><i class="fa-solid fa-chair"></i> Nombre de places disponibles : {{ session.nbPlace - session.stagiaires|length }}</p>
-                    <p><i class="fa-solid fa-clipboard-list"></i> Nombre de modules : {{ session.programmes|length }}</p>
+                <div class="stagiaire combined">
+                    <div>
+                        <h4><i class="fa-regular fa-square-check"></i> Stagiaires inscrits</h4>
+                        <div class="stagiaire-inscrit">
+                            <ul>
+                                {# boucle for pour afficher les stagiaires inscrits #}
+                                {% for stagiaire in session.stagiaires %}
+                                {# Nom du stagiaire avec lien vers détail stagiaire #}
+                                <li>
+                                    <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
+                                        <i class="fa-solid fa-user"></i> {{ stagiaire }}
+                                    </a>
+                                    <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                        <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fa-regular fa-square-minus"></i> Stagiaires non inscrits</h4>
+                        <div class="stagiaire-noninscrit">
+                            <ul>
+                                {# boucle for pour afficher les stagiaires non inscrits #}
+                                {% for stagiaire in stagiairesNonInscrit %}
+                                <li>
+                                    <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
+                                        <i class="fa-solid fa-user"></i> {{ stagiaire }}
+                                    </a>
+                                    {% if session.nbPlace - session.stagiaires|length > 0 %}
+                                    <a class="add" href="{{ path('add_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                        <i class="fa-solid fa-user-plus" style="color: #15c621;"></i>
+                                    </a>
+                                </li>
+                                {# on affiche l'icon inscrire stagiaire si il reste de la place sinon, on affiche un message #}
+                                {% else %}
+                                    <p class="complet" style="color: rgb(248, 60, 60);"><i class="fa-solid fa-ban"></i></p>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="action">
-                    <a class="edit" href="{{ path('edit_session', {'id': session.id }) }}">
-                        <i class="fa-regular fa-pen-to-square fa-lg"></i>
-                    </a>
-                    <p class="delete"><i class="fa-solid fa-xmark fa-lg"></i></p>
-                </div>
-                <br>
-                {# Si il n'y a plus de place disponible on affiche un message #}
-                {% if session.nbPlace - session.stagiaires|length == 0 %}
-                    <p class="no-slot">Il n'y a plus de place disponible pour cette session.</p>
-                {% endif %}
             </div>
         </div>
-            <div class="stagiaire">
+            <div class="stagiaire mobile">
                 <div>
                     <h4><i class="fa-regular fa-square-check"></i> Stagiaires inscrits</h4>
                     <div class="stagiaire-inscrit">
@@ -87,7 +136,7 @@
                     </div>
                 </div>
                 <div>
-                    <h4><i class="fa-regular fa-square-minus"></i> Stagiaires non inscrits</h4>
+                    <h4 class="h4"><i class="fa-regular fa-square-minus"></i> Stagiaires non inscrits</h4>
                     <div class="stagiaire-noninscrit">
                         <ul>
                             {# boucle for pour afficher les stagiaires non inscrits #}
@@ -141,9 +190,9 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <div class="total">
-                            <p>Total de jours : {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}</p>
-                        </div>
+                    </div>
+                    <div class="total">
+                        <p>Total de jours : {{ session.programmes|map(item => item.dureeJour)|reduce((carry, item) => carry + item, 0) }}</p>
                     </div>
                 </div>
 
