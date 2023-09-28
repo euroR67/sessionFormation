@@ -24,7 +24,7 @@
                         <td>{{ module.categories }}</td>
                         <td class="action" >
                             <a href="{{ path('edit_modules', {'id': module.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <button>
+                            <button class="supp">
                                 <i class="fa-solid fa-xmark fa-lg"></i>
                             </button>
                         </td>
@@ -40,20 +40,29 @@
     
                     <script>
     
-                        // On récupère les éléments du DOM
-                        const modal = document.querySelector('.modal');
-                        // On récupère la balise i qui contient l'icone de suppression
-                        const btnSupp = document.querySelector('.fa-xmark');
-                        const btnCancel = document.querySelector('.cancel');
-                
-                        // On ajoute un écouteur d'évènement sur le bouton de suppression
-                        btnSupp.addEventListener('click', function() {
-                            modal.style.display = 'block';
-                        });
-                
-                        // On ajoute un écouteur d'évènement sur le bouton d'annulation
-                        btnCancel.addEventListener('click', function() {
-                            modal.style.display = 'none';
+                        // DOMContentLoaded 
+                        document.addEventListener('DOMContentLoaded', function() {
+    
+                            // On récupère tout les div qui ont la classe modal
+                        const modal = document.querySelectorAll('.modal');
+                        // On récupère tout les button qui ont la classe delete
+                        const btnSupp = document.querySelectorAll('.supp');
+                        // On récupère tout les button qui ont la classe cancel
+                        const btnCancel = document.querySelectorAll('.cancel');
+
+                        // On ajoute un écouteur d'évènement sur tout les boutons de suppression
+                        for (let i = 0; i < btnSupp.length; i++) {
+                            btnSupp[i].addEventListener('click', function() {
+                                modal[i].style.display = 'block';
+                            });
+                        }
+
+                        // On ajoute un écouteur d'évènement sur tout les boutons d'annulation
+                        for (let i = 0; i < btnCancel.length; i++) {
+                            btnCancel[i].addEventListener('click', function() {
+                                modal[i].style.display = 'none';
+                            });
+                        }
                         });
                 
                     </script>

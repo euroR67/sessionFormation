@@ -760,7 +760,7 @@ html, body {
 
     .wrapper .table {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
     }
 
@@ -878,7 +878,7 @@ html, body {
     }
 
     .wrapper .table {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .sessions-wrapper .table {
@@ -887,5 +887,13 @@ html, body {
 
     .wrapper .lists {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    .confirm-delete {
+        width: 20%;
+    }
+
+    .wrapper {
+        width: 60%;
     }
 }

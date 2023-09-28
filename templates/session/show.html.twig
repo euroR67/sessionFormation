@@ -15,7 +15,6 @@
                 <div class="modal">
                     <div class="confirm-delete">
                         <p>Êtes-vous sûr de vouloir supprimer {{ session }} ? cet action est irréversible.</p><br>
-                        <p>Tous les stagiaires inscrits à cette session seront également supprimer.</p><br>
                         {# lien vers la suppression de la session #}
                         <a class="supp-form" href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
                         <button class="cancel">Annuler</button>

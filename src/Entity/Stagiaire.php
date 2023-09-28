@@ -86,6 +86,15 @@ class Stagiaire
         return $this;
     }
 
+    // Méthode pour calculer l'âge du stagiaire
+    public function getAge(): int
+    {
+        $now = new \DateTime();
+        $interval = $this->date_naissance->diff($now);
+
+        return $interval->y;
+    }
+
     public function getSexe(): ?string
     {
         return $this->sexe;
