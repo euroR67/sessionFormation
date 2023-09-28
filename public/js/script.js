@@ -27,108 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Appliquez le mode sombre s'il est activé
     if (isDarkMode) {
-        body.classList.add('dark-theme');
-        nav.classList.add('dark-theme');
-        footer.classList.add('dark-theme');
-        bars.classList.add('dark-theme');
-        logo.classList.add('dark-theme');
-        profil.forEach(function(element) {
+        const darkElements = [body, nav, footer, bars, logo, ...profil, ...banner, ...stagiaireDetail, ...navLinks, ...formulaire, ...formInput, ...navText, ...table, ...lists, ...labels, ...sessionStagiaire, ...sessionDetail, ...sessionProgramme, ...h3];
+        darkElements.forEach(function(element) {
             element.classList.add('dark-theme');
         });
-        banner.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        stagiaireDetail.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        navLinks.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        formulaire.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        formInput.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        navText.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        table.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        lists.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        labels.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        sessionStagiaire.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        sessionDetail.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        sessionProgramme.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        h3.forEach(function(element) {
-            element.classList.add('dark-theme');
-        });
-        
     }
-
-    
 
     darkBtn.addEventListener('click', function() {
         // Basculer entre les modes sombre et clair
-        body.classList.toggle('dark-theme');
-        nav.classList.toggle('dark-theme');
-        footer.classList.toggle('dark-theme');
-        bars.classList.toggle('dark-theme');
-        logo.classList.toggle('dark-theme');
-        profil.forEach(function(element) {
+        const toggleElements = [body, nav, footer, bars, logo, ...profil, ...banner, ...stagiaireDetail, ...formulaire, ...navText, ...formInput, ...table, ...lists, ...labels, ...sessionStagiaire, ...sessionDetail, ...sessionProgramme, ...h3];
+        toggleElements.forEach(function(element) {
             element.classList.toggle('dark-theme');
         });
-        banner.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        stagiaireDetail.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        formulaire.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        navText.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        formInput.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        table.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        lists.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        labels.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        sessionStagiaire.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        sessionDetail.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        sessionProgramme.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        h3.forEach(function(element) {
-            element.classList.toggle('dark-theme');
-        });
-        
 
         // Enregistrer le mode sombre dans localStorage
         localStorage.setItem('darkMode', body.classList.contains('dark-theme'));
-    }
-    );
+    });
 });
