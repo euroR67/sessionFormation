@@ -698,10 +698,35 @@ main {
 html, body {
     height: 100%;
     margin: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Masquer le contenu pendant le chargement initial */
+.preload {
+    display: none;
 }
 
 .wrapper .table {
     margin-bottom: 10px;
+}
+
+.theme {
+    cursor: pointer;
+}
+
+/* Dark theme */
+
+
+
+body.dark-theme,
+header nav.dark-theme {
+    background-color: #373737;
+    color: #fff;
+}
+
+header .logo-menu.dark-theme,
+header ul li a.dark-theme {
+    color: #eeeeee;
 }
 
 @media screen and (min-width: 768px) {
