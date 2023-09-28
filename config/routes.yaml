@@ -9,3 +9,10 @@ controllers:
 app_home:
     path: /
     controller: App\Controller\HomeController::index
+
+generate_pdf_attestation:
+    path: /session/{id}/generate-pdf/{stagiaireId?}
+    controller: 'App\Controller\SessionController::generatePdf'
+
+
+

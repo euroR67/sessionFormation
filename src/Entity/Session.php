@@ -104,6 +104,20 @@ class Session
         return $this->dateSession;
     }
 
+    // Méthode pour calculer la durée d'une session
+    public function getDureeJours(): int
+    {
+        $dateDebut = $this->getDateSession();
+        $dateFin = $this->getDateFin();
+
+        if ($dateDebut !== null && $dateFin !== null) {
+            $diff = $dateDebut->diff($dateFin);
+            return $diff->days;
+        }
+
+        return 0; // Par défaut, retournez 0 si dateDebut ou dateFin n'est pas défini.
+    }
+
     public function setDateSession(\DateTimeInterface $dateSession): static
     {
         $this->dateSession = $dateSession;

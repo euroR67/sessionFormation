@@ -81,6 +81,9 @@
                                     <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
                                         <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
                                     </a>
+                                    <a href="{{ path('generate_pdf_attestation', { 'id': session.id, 'stagiaireId': stagiaire.id }) }}">
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                    </a>
                                 </li>
                                 {% endfor %}
                             </ul>

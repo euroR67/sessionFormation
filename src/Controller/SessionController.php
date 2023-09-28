@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use TCPDF;
 use App\Entity\Modules;
 use App\Entity\Session;
 use App\Entity\Programme;
@@ -171,6 +172,56 @@ class SessionController extends AbstractController
             'modules' => $modulesRepository->findAll()
         ]);
     }
+
+    #[Route('/session/{id}/generate-pdf/{stagiaireId}', name: 'generate_pdf_attestation')]
+    public function generatePdf($id, $stagiaireId, SessionRepository $sessionRepository, StagiaireRepository $stagiaireRepository): Response
+    {
+        // Récupérez la session
+        $session = $sessionRepository->find($id);
+    
+        // Récupérez le stagiaire en fonction de l'identifiant
+        $stagiaire = $stagiaireRepository->find($stagiaireId);
+    
+        // Vérifiez si la session et le stagiaire existent
+        if (!$session || !$stagiaire) {
+            $this->addFlash('error', 'La session ou le stagiaire demandé n\'existe pas');
+            return $this->redirectToRoute('app_session');
+        }
+    
+        // Générez le PDF personnalisé pour le stagiaire spécifié
+        $pdf = new TCPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Helvetica', '', 12);
+        $pdf->Cell(0, 10, 'Attestation d\'entrée en formation', 0, 1, 'C');
+    
+        // Nom de la session
+        $pdf->Cell(0, 10, 'Nom de la session : ' . $session->getNomSession(), 0, 1);
+        // Autres détails de la session...
+    
+        // Nom du stagiaire
+        $pdf->Cell(0, 10, 'Stagiaire : ' . $stagiaire->getNom() . ' ' . $stagiaire->getPrenom(), 0, 1);
+        // Nom du formateur
+        $pdf->Cell(0, 10, 'Formateur : ' . $session->getFormateur()->getNom() . ' ' . $session->getFormateur()->getPrenom(), 0, 1);
+        // Date de début de la session
+        $pdf->Cell(0, 10, 'Date de début : ' . $session->getDateSession()->format('d/m/Y'), 0, 1);
+        // Date de fin de la session
+        $endDate = clone $session->getDateSession(); // Clonez l'objet DateTime pour éviter de le modifier
+        $endDate->modify('+' . $session->getDureeJours() . ' days'); // Utilisez getDureeJours() ou la méthode appropriée pour obtenir le nombre de jours
+
+        $pdf->Cell(0, 10, 'Date de fin de la session : ' . $endDate->format('d/m/Y'), 0, 1);
+
+    
+        // Date de l'attestation
+        $pdf->Cell(0, 10, 'Date de l\'attestation : ' . date('d/m/Y'), 0, 1);
+    
+        // Renvoyez le PDF en réponse HTTP pour le téléchargement
+        $response = new Response($pdf->Output('attestation_formation.pdf', 'I'));
+        $response->headers->set('Content-Type', 'application/pdf');
+    
+        return $response;
+    }
+    
+
 
     // Méthode pour retirer un programme d'une session
     #[Route('/session/removeProgramme/{id}/{programme}', name: 'remove_module')]
