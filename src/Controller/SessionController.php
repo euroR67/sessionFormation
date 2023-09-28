@@ -188,31 +188,44 @@ class SessionController extends AbstractController
             return $this->redirectToRoute('app_session');
         }
     
-        // Générez le PDF personnalisé pour le stagiaire spécifié
+        // Créez un nouvel objet TCPDF
         $pdf = new TCPDF();
+        $pdf->SetMargins(10, 10, 10); // Définissez les marges du document
         $pdf->AddPage();
-        $pdf->SetFont('Helvetica', '', 12);
+    
+        // Titre de l'attestation
+        $pdf->SetFont('Helvetica', 'B', 16);
         $pdf->Cell(0, 10, 'Attestation d\'entrée en formation', 0, 1, 'C');
     
-        // Nom de la session
+        // Ligne de séparation
+        $pdf->SetLineWidth(0.5);
+        $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+        $pdf->SetLineWidth(0.2);
+    
+        // Informations sur la session
+        $pdf->SetFont('Helvetica', '', 12);
         $pdf->Cell(0, 10, 'Nom de la session : ' . $session->getNomSession(), 0, 1);
-        // Autres détails de la session...
-    
-        // Nom du stagiaire
-        $pdf->Cell(0, 10, 'Stagiaire : ' . $stagiaire->getNom() . ' ' . $stagiaire->getPrenom(), 0, 1);
-        // Nom du formateur
-        $pdf->Cell(0, 10, 'Formateur : ' . $session->getFormateur()->getNom() . ' ' . $session->getFormateur()->getPrenom(), 0, 1);
-        // Date de début de la session
+        $pdf->Cell(0, 10, 'Formateur : ' . $session->getFormateur(), 0, 1); // Utilisation de __toString
         $pdf->Cell(0, 10, 'Date de début : ' . $session->getDateSession()->format('d/m/Y'), 0, 1);
-        // Date de fin de la session
-        $endDate = clone $session->getDateSession(); // Clonez l'objet DateTime pour éviter de le modifier
-        $endDate->modify('+' . $session->getDureeJours() . ' days'); // Utilisez getDureeJours() ou la méthode appropriée pour obtenir le nombre de jours
-
-        $pdf->Cell(0, 10, 'Date de fin de la session : ' . $endDate->format('d/m/Y'), 0, 1);
-
     
-        // Date de l'attestation
-        $pdf->Cell(0, 10, 'Date de l\'attestation : ' . date('d/m/Y'), 0, 1);
+        $endDate = clone $session->getDateSession();
+        $endDate->modify('+' . $session->getDureeJours() . ' days');
+        $pdf->Cell(0, 10, 'Date de fin : ' . $endDate->format('d/m/Y'), 0, 1);
+    
+        // Texte de l'attestation
+        $pdf->SetFont('Helvetica', '', 12);
+        $pdf->MultiCell(0, 10, "Ce document atteste que $stagiaire est inscrit(e) à la session de formation \"{$session->getNomSession()}\" de l'organisme Elan Formation. La formation a débuté le {$session->getDateSession()->format('d/m/Y')} et se terminera le {$endDate->format('d/m/Y')}.", 0, 'L');
+    
+        // Signature
+        $pdf->SetY($pdf->GetY() + 10); // Espacement
+        $pdf->Cell(0, 10, 'Fait à Strasbourg, le ' . date('d/m/Y'), 0, 1, 'R');
+    
+        // Nom du signataire
+        $pdf->SetY($pdf->GetY() + 10); // Espacement
+        $pdf->Cell(0, 10, 'Signature : ________________________________', 0, 1, 'R');
+    
+        // Nom et titre du signataire
+        $pdf->Cell(0, 10, 'Nom et titre du signataire : ________________________________', 0, 1, 'R');
     
         // Renvoyez le PDF en réponse HTTP pour le téléchargement
         $response = new Response($pdf->Output('attestation_formation.pdf', 'I'));
@@ -220,6 +233,7 @@ class SessionController extends AbstractController
     
         return $response;
     }
+    
     
 
 
