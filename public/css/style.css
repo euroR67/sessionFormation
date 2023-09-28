@@ -665,6 +665,7 @@ main .home-banner {
 
 .combined {
     display: none;
+    margin-top: 85px;
 }
 
 .formateur {
@@ -950,7 +951,7 @@ header .user a.dark-theme:hover {
     }
 
     .wrapper {
-        width: 75%;
+        max-width: 1200px;
     }
 }
 
