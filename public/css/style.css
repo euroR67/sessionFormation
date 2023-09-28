@@ -195,6 +195,7 @@ label {
     border: 1px solid #ccc;
     border-radius: 3px;
     font-size: 16px;
+    outline: none;
 }
 
 .btn-primary {
@@ -235,7 +236,7 @@ main table {
 .responsive td {
     display: block;
     text-align: right;
-    border: 1px solid #c1c1c1;
+    border: 1px solid #9191913d;
 }
 
 .responsive td::before {
@@ -247,10 +248,6 @@ main table {
 
 .responsive td:first-child::before {
     color: #fff; /* Couleur différente pour le premier td::before */
-}
-
-.responsive td:last-child {
-    border-bottom: 1px solid;
 }
 
 main table tbody .status-complet {
@@ -706,17 +703,16 @@ html, body {
     display: none;
 }
 
-.wrapper .table {
-    margin-bottom: 10px;
-}
-
 .theme {
     cursor: pointer;
 }
 
 /* Dark theme */
 
-
+.banner.dark-theme {
+    background: rgb(3,1,41);
+    background: linear-gradient(356deg, rgba(3,1,41,1) 0%, rgba(32,32,80,1) 38%, rgba(60,60,60,1) 100%);
+}
 
 body.dark-theme,
 header nav.dark-theme {
@@ -724,9 +720,116 @@ header nav.dark-theme {
     color: #fff;
 }
 
+header nav ul li.dark-theme {
+    border-bottom: 1px solid #6e6e6ed7;
+}
+
+footer.dark-theme {
+    background-color: #2b2b2b;
+    color: #fff;
+}
+
+.wrapper .container.dark-theme {
+    background-color: #2b2b2b;
+    border: 1px solid #000;
+}
+
+.wrapper .container .form-control.dark-theme {
+    background-color: #373737;
+    border: 1px solid #303030d7;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.wrapper .container .form-control.dark-theme:hover {
+    border: 1px solid rgb(122, 122, 122);
+}
+
+.wrapper .container .form-control.dark-theme:focus {
+    border: 1px solid rgb(78, 81, 128);
+}
+
 header .logo-menu.dark-theme,
 header ul li a.dark-theme {
     color: #eeeeee;
+}
+
+main table tbody tr.dark-theme {
+    background-color: #454545;
+}
+
+.wrapper div .lists li a.dark-theme {
+    background-color: #152354;
+    border-bottom: 1px solid #303030d7;
+}
+
+.wrapper div .lists li a.dark-theme:hover {
+    background-color: #1e2d5a;
+}
+
+.dark-theme .responsive td::before {
+    color: #fff; /* Couleur pour le mode sombre */
+}
+
+main table tbody tr td p.dark-theme {
+    color: #b7b7b7;
+}
+
+.session-detail.dark-theme {
+    background-color: #444444;
+    border: 2px solid rgba(128, 128, 128, 0.764);
+}
+
+.programme.dark-theme {
+    background-color: #444444;
+    border: 2px solid rgba(128, 128, 128, 0.764);
+}
+
+.stagiaire.dark-theme, .combined.dark-theme {
+    background-color: #444444;
+    border: 2px solid rgba(128, 128, 128, 0.764);
+    border-radius: 10px;
+}
+
+.wrapper .fiche-stagiaire.dark-theme {
+    background-color: #444444;
+    border: 2px solid rgba(128, 128, 128, 0.764);
+}
+
+.barsIcon.dark-theme {
+    color: #fff;
+}
+
+.barsIcon {
+    color: #0056b3;
+}
+
+.barsIcon.dark-theme:hover {
+    color: #d9d9d9;
+}
+
+.wrapper h3.dark-theme {
+    background-color: #152354;
+}
+
+.wrapper h3.dark-theme:hover {
+    background-color: #1e2d5a;
+}
+
+header .logo.dark-theme {
+    color: #fff;
+}
+
+header .logo.dark-theme:hover {
+    color: #d9d9d9;
+}
+
+header .user a.dark-theme {
+    color: #fff;
+}
+
+header .user a.dark-theme:hover {
+    color: #d9d9d9;
 }
 
 @media screen and (min-width: 768px) {
@@ -793,10 +896,6 @@ header ul li a.dark-theme {
         display: table;
     }
 
-    .table .responsive td {
-        border: 1px solid rgb(224, 224, 224);
-    }
-
     /* Fin liste sessions */
 
     /* Liste stagiaires */
@@ -847,7 +946,6 @@ header ul li a.dark-theme {
     }
 
     header nav ul li {
-        color: #000;
         border: none;
     }
 
@@ -874,15 +972,6 @@ header ul li a.dark-theme {
 
     .subinfo {
         width: fit-content;
-    }
-
-    .combined {
-        display: initial;
-        display: flex;
-    }
-
-    .mobile {
-        display: none;
     }
 
     .session-detail {
@@ -919,6 +1008,17 @@ header ul li a.dark-theme {
     }
 
     .wrapper {
-        width: 60%;
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .combined {
+        display: initial;
+        display: flex;
+    }
+
+    .mobile {
+        display: none;
     }
 }
