@@ -75,7 +75,9 @@ class SessionController extends AbstractController
                 $entityManager->persist($stagiaire);
             }
 
+            // On persiste les modifications (prépare la requête)
             $entityManager->persist($session);
+            // On enregistre les modifications(éxécute la requête)
             $entityManager->flush();
 
 
@@ -233,9 +235,6 @@ class SessionController extends AbstractController
     
         return $response;
     }
-    
-    
-
 
     // Méthode pour retirer un programme d'une session
     #[Route('/session/removeProgramme/{id}/{programme}', name: 'remove_module')]

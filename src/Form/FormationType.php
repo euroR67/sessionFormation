@@ -23,6 +23,7 @@ class FormationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Formation::class,
+            'csrf_protection' => true, // activer la protection CSRF
         ]);
     }
 }

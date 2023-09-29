@@ -665,7 +665,6 @@ main .home-banner {
 
 .combined {
     display: none;
-    margin-top: 85px;
 }
 
 .formateur {
@@ -778,17 +777,16 @@ main table tbody tr td p.dark-theme {
 
 .session-detail.dark-theme {
     background-color: #444444;
-    border: 2px solid rgba(128, 128, 128, 0.764);
+    border-radius: 10px;
 }
 
 .programme.dark-theme {
     background-color: #444444;
-    border: 2px solid rgba(128, 128, 128, 0.764);
+    border-radius: 10px;
 }
 
 .stagiaire.dark-theme, .combined.dark-theme {
     background-color: #444444;
-    border: 2px solid rgba(128, 128, 128, 0.764);
     border-radius: 10px;
 }
 
@@ -850,6 +848,7 @@ header .user a.dark-theme:hover {
         display: flex;
         width: 100%;
         gap: 20px;
+        padding: 0;
     }
 
     .stagiaire > div {

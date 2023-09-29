@@ -34,6 +34,7 @@ class StagiaireType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Stagiaire::class,
+            'csrf_protection' => true, // activer la protection CSRF
         ]);
     }
 }

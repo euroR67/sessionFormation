@@ -5,13 +5,12 @@
 {% block body %}
 
     <div class="banner">
-        <h2>Détail d'une session</h2>
+        <h2>Détail {{ session }}</h2>
     </div>
 
     <div class="wrapper">
         <div class="session-detail">
             <div>
-                <h2>{{ session }}</h2>
                 <div class="modal">
                     <div class="confirm-delete">
                         <p>Êtes-vous sûr de vouloir supprimer {{ session }} ? cet action est irréversible.</p><br>

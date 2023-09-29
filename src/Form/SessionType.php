@@ -24,7 +24,7 @@ class SessionType extends AbstractType
             ->add('nbPlace', NumberType::class, [
                 'html5' => true,
                 'attr' => [
-                    'min' => $options['current_nb_stagiaires'], // Vous devez passer cette option depuis le contrôleur
+                    'min' => $options['current_nb_stagiaires'],
                 ],
             ])
             ->add('dateSession', DateType::class, [

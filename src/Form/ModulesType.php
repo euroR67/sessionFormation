@@ -31,6 +31,7 @@ class ModulesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Modules::class,
+            'csrf_protection' => true, // activer la protection CSRF
         ]);
     }
 }
