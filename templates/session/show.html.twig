@@ -77,12 +77,14 @@
                                     <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">
                                         <i class="fa-solid fa-user"></i> {{ stagiaire }}
                                     </a>
-                                    <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
-                                        <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
-                                    </a>
-                                    <a href="{{ path('generate_pdf_attestation', { 'id': session.id, 'stagiaireId': stagiaire.id }) }}">
-                                        <i class="fa-solid fa-file-pdf"></i>
-                                    </a>
+                                    <span>
+                                        <a class="delete" href="{{ path('remove_stagiaire', {'id':session.id, 'stagiaire': stagiaire.id}) }}">
+                                            <i class="fa-solid fa-user-minus" style="color: #db0606;"></i>
+                                        </a>
+                                        <a href="{{ path('generate_pdf_attestation', { 'id': session.id, 'stagiaireId': stagiaire.id }) }}">
+                                            <i class="fa-solid fa-file-pdf fa-xl"></i>
+                                        </a>
+                                    </span>
                                 </li>
                                 {% endfor %}
                             </ul>
